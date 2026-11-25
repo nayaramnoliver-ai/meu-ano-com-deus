@@ -1,5 +1,5 @@
-// My Year with God 2027 — funciona sem internet. Versão 202611251708
-const CACHE='mlc-en-202611251708';
+// My Year with God 2027 — funciona sem internet. Versão 202611252210
+const CACHE='mlc-en-202611252210';
 const BASE=['./','index.html','manifest.webmanifest','icone-192.png','icone-512.png','icone-180.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(BASE)).then(()=>self.skipWaiting()));});
 // apaga só os caches antigos DESTE idioma (os outros idiomas têm caches próprios)
