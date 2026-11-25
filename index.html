@@ -1156,7 +1156,8 @@ function ilu(tipo){
     safari:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>',
     chrome:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.2"/><path d="M12 8.8h8M9.2 13.6 5.2 6.7M14.8 13.6l-4 6.9"/></svg>',
     celular:'<svg viewBox="0 0 24 24"><path d="M8.5 13.5V8.6M15.5 13.5V8.6"/><rect x="6.5" y="3" width="11" height="18" rx="2.5"/><path d="M10.5 18h3"/></svg>',
-    ok:'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-8.5"/></svg>'
+    ok:'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-8.5"/></svg>',
+    vermais:'<svg viewBox="0 0 24 24"><path d="M5 6.5h14M5 11h14"/><path d="m8.5 15 3.5 3.5 3.5-3.5"/></svg>'
   }[tipo];
   return '<span class="ilu" aria-hidden="true">'+t+"</span>";
 }
@@ -1168,18 +1169,21 @@ function vTutorial(){
   var h=sub("Colocar na tela do celular")+'<section class="stack tut"><p class="mao">É rapidinho, leva 1 minuto</p><h1>Vamos colocar o app na tela do seu celular</h1><p class="grande">Assim ele fica com um ícone, igual a qualquer aplicativo. É só tocar e começar a rezar.</p></section>';
   h+='<section class="bloco"><span class="lb">Qual é o seu celular?</span><div class="duo tcel"><button class="tbt'+(c==="ios"?" on":"")+'" data-a="tutCel" data-c="ios">iPhone<small>Apple</small></button><button class="tbt'+(c==="android"?" on":"")+'" data-a="tutCel" data-c="android">Android<small>Samsung, Motorola, Xiaomi...</small></button></div></section>';
   if(instalaEvt&&c==="android")h+='<article class="escuro"><h2>Jeito mais fácil</h2><p>Toque no botão abaixo e depois em <b>Instalar</b>.</p><button class="btn" data-a="instalarJa">Colocar na tela agora</button><p class="mini">Se não funcionar, siga o passo a passo abaixo.</p></article>';
-  if(navInterno())h+='<article class="card cheio c-amarelo tut"><div class="eyebrow">Atenção</div><p class="grande">Você abriu o app por dentro de outro aplicativo (Instagram, e-mail ou WhatsApp). Antes de tudo, faça o <b>passo 1</b> abaixo.</p></article>';
+  var antes=c==="ios"
+    ?'<b>Antes de começar:</b> se você abriu este link pelo Instagram ou pelo e-mail e não vê os três pontinhos (•••) na parte de baixo da tela, toque no ícone da <b>bússola</b> ou em <b>“Abrir no Safari”</b>.'
+    :'<b>Antes de começar:</b> se você abriu este link pelo Instagram ou pelo e-mail, toque nos três pontinhos e escolha <b>“Abrir no Chrome”</b> (ou “Abrir no navegador”).';
+  h+='<article class="card cheio c-amarelo tut"><p class="grande">'+antes+'</p></article>';
   h+='<ol class="tpassos">';
   if(c==="ios"){
-    h+=passo(1,"Abra no Safari","O Safari é a bússola azul do iPhone. Se você abriu este link pelo e-mail, Instagram ou WhatsApp, toque nos <b>três pontinhos</b> ou no ícone da <b>bússola</b> e escolha <b>“Abrir no Safari”</b>.",ilu("safari"));
-    h+=passo(2,"Toque no botão de compartilhar","Ele fica na barra de baixo da tela: é um <b>quadradinho com uma setinha para cima</b>.",ilu("share"),'<p class="dica">Não achou? Toque nos <b>três pontinhos (•••)</b> no canto de baixo e depois em <b>Compartilhar</b>.</p>');
-    h+=passo(3,"Toque em “Adicionar à Tela de Início”","Vai abrir uma lista. Arraste a lista para cima com o dedo até achar <b>“Adicionar à Tela de Início”</b>, que tem um quadradinho com um sinal de +.",ilu("mais"),'<p class="dica">Se não aparecer, toque em <b>“Ver mais”</b> ou <b>“Editar ações”</b> no fim da lista.</p>');
-    h+=passo(4,"Toque em “Adicionar”","Fica no canto de cima, à direita. Pronto, o app foi para a tela do seu iPhone!",ilu("ok"));
+    h+=passo(1,"Toque nos três pontinhos","Eles ficam na <b>parte de baixo da tela</b>, no canto direito: <b>•••</b>",ilu("pontosh"),'<p class="dica">Em iPhones mais antigos, o botão de compartilhar (quadradinho com setinha) já aparece direto na barra de baixo. Toque nele e pule para o passo 3.</p>');
+    h+=passo(2,"Toque em “Compartilhar”","É o <b>primeiro ícone</b> que aparece: um <b>quadradinho com uma setinha para cima</b>.",ilu("share"));
+    h+=passo(3,"Toque em “Ver mais”","Vão aparecer opções como WhatsApp, Mensagem e Copiar. Logo embaixo, toque em <b>“Ver mais”</b>.",ilu("vermais"));
+    h+=passo(4,"Toque em “Adicionar à Tela de Início”","Fica um pouco mais para baixo na lista e tem um <b>quadradinho com o sinal de +</b>.",ilu("mais"));
+    h+=passo(5,"Toque em “Adicionar”","Fica no <b>canto de cima, à direita</b>. Pronto, o app foi para a tela do seu iPhone!",ilu("ok"));
   }else{
-    h+=passo(1,"Abra no Chrome","O Chrome é a bolinha colorida (vermelha, amarela e verde). Se você abriu este link pelo e-mail, Instagram ou WhatsApp, toque nos <b>três pontinhos</b> e escolha <b>“Abrir no Chrome”</b>.",ilu("chrome"));
-    h+=passo(2,"Toque nos três pontinhos","Eles ficam no <b>canto de cima, à direita</b> da tela, em pé, um embaixo do outro.",ilu("pontos"));
-    h+=passo(3,"Toque em “Adicionar à tela inicial”","Em alguns celulares o nome é <b>“Instalar app”</b>. Os dois fazem a mesma coisa.",ilu("celular"),'<p class="dica">No navegador da Samsung, toque nas <b>três listrinhas</b> embaixo e depois em <b>“Adicionar página a”</b> e <b>“Tela inicial”</b>.</p>');
-    h+=passo(4,"Toque em “Instalar” ou “Adicionar”","Confirme na janelinha que aparecer. Pronto, o app foi para a tela do seu celular!",ilu("ok"));
+    h+=passo(1,"Toque nos três pontinhos","Eles ficam no <b>canto de cima, à direita</b> da tela, em pé, um embaixo do outro: <b>⋮</b>",ilu("pontos"));
+    h+=passo(2,"Toque em “Adicionar à tela inicial”","Em alguns celulares o nome é <b>“Instalar app”</b>. Os dois fazem a mesma coisa.",ilu("celular"),'<p class="dica">No navegador da Samsung, toque nas <b>três listrinhas</b> embaixo e depois em <b>“Adicionar página a”</b> e <b>“Tela inicial”</b>.</p>');
+    h+=passo(3,"Toque em “Instalar” ou “Adicionar”","Confirme na janelinha que aparecer. Pronto, o app foi para a tela do seu celular!",ilu("ok"));
   }
   h+="</ol>";
   h+='<article class="card cheio c-azul tut"><div class="row" style="gap:14px"><span class="iconeapp">'+ICONE_APP+'</span><div class="stack" style="gap:4px"><h3>Procure este ícone</h3><p>Ele aparece na tela do celular com o nome <b>“Ano com Deus”</b>.</p></div></div></article>';
