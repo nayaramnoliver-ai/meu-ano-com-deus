@@ -107,6 +107,7 @@ p{margin:0}
 .tempo .txt{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1}
 .tempo .tag{background:#fff}
 .tempo p{font-size:14px}
+.tempo p span{display:block;margin-top:3px;font-size:14.5px;font-weight:500;color:var(--tinta)}
 .tempo b{font-family:var(--f-tit);color:var(--titulo);font-size:19px;font-weight:700;display:block;line-height:1.2}
 .velas{display:flex;gap:6px;align-items:flex-end;flex:none}
 .velas svg{width:16px;height:46px}
@@ -344,6 +345,21 @@ details.item p{padding-top:8px;white-space:pre-line}
 .tc .dica{font-size:15px;background:var(--am);border-radius:14px;padding:10px 12px}
 .ilu{width:76px;height:76px;border-radius:20px;background:var(--az);display:grid;place-items:center;color:var(--titulo);border:2.5px solid var(--mao)}
 .ilu svg{width:44px;height:44px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* Desafio especial em destaque na tela de início */
+.dest{--dbg:var(--lit-roxo-c);--dbd:var(--lit-roxo);background:var(--dbg);border:2px solid var(--dbd);border-radius:24px;padding:20px 18px;display:flex;flex-direction:column;gap:12px;outline:1.4px dashed var(--dbd);outline-offset:-9px}
+.dest.d-ouro{--dbg:var(--am);--dbd:var(--am2)}
+.dest .dtopo{display:flex;gap:14px;align-items:center;justify-content:space-between}
+.dest .tag{background:#fff}
+.dest h2{font-size:25px;line-height:1.15;text-wrap:balance}
+.dest .grande{font-size:16px;line-height:1.5;color:var(--tinta)}
+.dest .grande b,.dest p b{color:var(--titulo)}
+.dest .cont{flex:none;width:82px;height:82px;border-radius:50%;background:#fff;border:2px dashed var(--dbd);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;color:var(--titulo);text-align:center}
+.dest .cont b{font-family:var(--f-tit);font-size:30px;font-weight:700}
+.dest .cont small{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta)}
+.dest .barra{background:#fff;height:9px}
+.dest .dok{display:flex;gap:8px;align-items:flex-start;font-weight:600;color:var(--titulo);font-size:15px}
+.dest .dok svg{width:20px;height:20px;flex:none;margin-top:2px;color:var(--verde-acao)}
 </style>
 </head>
 <body>
@@ -1192,13 +1208,51 @@ function vTutorial(){
   return h;
 }
 
+/* ---------- DESAFIOS ESPECIAIS (destaque na tela de início) ---------- */
+var DESTAQUES=[
+{id:"advento24",nome:"Desafio do Advento",ini:"2026-12-01",fim:"2026-12-24",aviso:"2026-11-22",quando:"1º de dezembro",cor:"roxo",ic:"vela"},
+{id:"anonovo7",nome:"Desafio do Ano Novo",ini:"2027-01-01",fim:"2027-01-07",aviso:"2026-12-25",quando:"1º de janeiro",cor:"ouro",ic:"sol"},
+{id:"quaresma40",nome:"Desafio da Quaresma",ini:"2027-02-10",fim:"2027-03-27",aviso:"2027-01-27",quando:"10 de fevereiro, Quarta-feira de Cinzas",cor:"roxo",ic:"vela"}
+];
+function destaqueAtual(){var s=hoje();for(var i=0;i<DESTAQUES.length;i++){var d=DESTAQUES[i];if(s>=d.aviso&&s<=d.fim){var p=plano(d.id);if(s>=d.ini&&!p)continue;return d;}}return null;}
+function cardDestaque(d){
+  var s=hoje(),p=plano(d.id),g=p?prog(d.id):null,h='<article class="dest d-'+d.cor+'">';
+  if(s<d.ini){
+    var f=diff(s,d.ini);
+    h+='<div class="dtopo"><div class="stack" style="gap:6px;min-width:0"><span class="tag">Desafio especial</span><h2>'+esc(d.nome)+'</h2></div><span class="cont"><small>'+(f===1?"começa":"faltam")+'</small>'+(f===1?'<b style="font-size:17px">amanhã</b>':'<b>'+f+'</b>')+(f===1?"":"<small>dias</small>")+"</span></div>";
+    h+='<p class="grande">Começa em <b>'+esc(d.quando)+"</b>."+(p?" "+esc(p.resumo):"")+"</p>";
+    if(!p)h+='<p class="dok">'+I("check")+"Ele chega aqui no app antes de começar. Fique de olho!</p>";
+    else if(g)h+='<p class="dok">'+I("check")+"Você já confirmou que vai participar. No dia, o primeiro passo aparece aqui.</p>"+'<button class="lnk" data-a="plano" data-id="'+d.id+'" style="align-self:center">Ver como é o desafio</button>';
+    else h+='<button class="btn" data-a="participar" data-id="'+d.id+'">Sim, quero participar</button><button class="lnk" data-a="plano" data-id="'+d.id+'" style="align-self:center">Ver como é o desafio</button>';
+    return h+"</article>";
+  }
+  var k=Math.min(diff(d.ini,s),p.d.length-1),tot=p.d.length,n=g?g.feitos.length:0;
+  h+='<div class="dtopo"><div class="stack" style="gap:6px;min-width:0"><span class="tag">'+esc(d.nome)+'</span><h2>Hoje é o dia '+(k+1)+'</h2></div><span class="cont"><small>dia</small><b>'+(k+1)+'</b><small>de '+tot+"</small></span></div>";
+  h+='<p class="grande">Passo de hoje: <b>'+esc(p.d[k][0])+"</b></p>";
+  if(!g){
+    h+='<p>'+(k===0?"O desafio começa hoje! Leva só alguns minutinhos.":"Ainda dá tempo de participar! Comece pelo passo de hoje e faça os anteriores com calma, se quiser.")+"</p>";
+    h+='<button class="btn" data-a="comecarDest" data-id="'+d.id+'" data-i="'+k+'">'+(k===0?"Começar o desafio agora":"Começar pelo dia de hoje")+"</button>";
+    if(k>0)h+='<button class="lnk" data-a="comecarDest" data-id="'+d.id+'" data-i="0" style="align-self:center">Prefiro começar pelo dia 1</button>';
+  }else if(n>=tot){
+    h+='<p class="dok">'+I("check")+"Você completou o "+esc(d.nome)+". Que lindo caminho!</p>";
+  }else{
+    var feitoHj=g.feitos.indexOf(k)>=0,atras=proximoDia(p);
+    h+=barra(n/tot)+'<p class="mini" style="margin-top:-4px">'+n+" de "+tot+" passos feitos</p>";
+    if(feitoHj){h+='<p class="dok">'+I("check")+"Passo de hoje feito. Que lindo!</p>"+(k+1<tot?"<p>Amanhã: <b>"+esc(p.d[k+1][0])+"</b></p>":"");h+='<button class="btn sec" data-a="dia" data-id="'+d.id+'" data-i="'+k+'">Rever o passo de hoje</button>';}
+    else h+='<button class="btn" data-a="dia" data-id="'+d.id+'" data-i="'+k+'">Fazer o passo de hoje</button>';
+    if(atras<k)h+='<button class="lnk" data-a="dia" data-id="'+d.id+'" data-i="'+atras+'" style="align-self:center">Ficou algum dia para trás? Ver o dia '+(atras+1)+"</button>";
+  }
+  return h+"</article>";
+}
+
 /* ---------- HOJE ---------- */
 function linhaTempo(s,t){
   if(t.id==="advento"){var sem=Math.floor(diff("2026-11-29",s)/7)+1;var f=diff(s,"2026-12-25");return "<b>"+sem+"ª semana do Advento</b><span>"+(f===1?"Amanhã é Natal!":"Faltam "+f+" dias para o Natal")+"</span>";}
-  if(t.id==="natal"){return "<b>Tempo do Natal</b><span>"+(s<="2027-01-01"?"Oitava do Natal: oito dias de festa":t.sub)+"</span>";}
-  if(t.id==="quaresma"){return "<b>Quaresma</b><span>"+t.sub+"</span>";}
-  if(s<"2026-11-29"){var a=diff(s,"2026-11-29");return "<b>Tempo Comum</b><span>"+(a===1?"Amanhã começa o Advento!":"Faltam "+a+" dias para o Advento")+"</span>";}
-  return "<b>Tempo Comum</b><span>"+t.sub+"</span>";
+  if(t.id==="natal"){return "<b>"+(s<="2027-01-01"?"Oitava do Natal":"Deus veio morar entre nós")+"</b><span>"+(s<="2027-01-01"?"Oito dias de festa pelo nascimento de Jesus":"Vivendo a alegria do Natal até o Batismo do Senhor")+"</span>";}
+  if(t.id==="quaresma"){return "<b>"+t.sub+"</b><span>Até a Páscoa, 28 de março</span>";}
+  if(s<"2026-11-29"){var a=diff(s,"2026-11-29");return "<b>"+(a===1?"Amanhã começa o Advento!":"Faltam "+a+" dias para o Advento")+"</b><span>O Advento começa no domingo, 29 de novembro</span>";}
+  if(s<"2027-02-10"&&diff(s,"2027-02-10")<=14){var q=diff(s,"2027-02-10");return "<b>"+(q===1?"Amanhã começa a Quaresma!":"Faltam "+q+" dias para a Quaresma")+"</b><span>Quarta-feira de Cinzas, 10 de fevereiro</span>";}
+  return "<b>"+t.sub+"</b><span>Crescer na fé um pouquinho a cada dia</span>";
 }
 function velas(s){
   var acesas=Math.min(4,Math.floor(diff("2026-11-29",s)/7)+1);var h="";
@@ -1226,10 +1280,12 @@ function cardAndamento(p){var g=prog(p.id);var n=g?g.feitos.length:0;var k=proxi
   return '<button class="andamento c-'+p.cor+'" data-a="dia" data-id="'+p.id+'" data-i="'+k+'"><span class="pic">'+I(p.ic)+'</span><span class="t"><b>'+esc(p.titulo)+'</b><small>Continuar no dia '+(k+1)+" · "+n+" de "+p.d.length+" feitos</small>"+barra(n/p.d.length)+"</span></button>";}
 function vHoje(){
   var s=hoje(),c=celebra(s),t=tempo(s),m=momento(s),cor=COR[c.cor]||COR.verde,feito=feitoMomento(s);
-  var at=planosAtivos();
+  var dq=destaqueAtual();
+  var at=planosAtivos().filter(function(p){return !dq||p.id!==dq.id;});
   var h=topo();
   h+='<section class="ola"><p class="mao">'+saudacao()+(S.nome?", "+esc(S.nome):"")+'</p><h1>'+cap(dataLonga(s))+"</h1></section>";
   if(precisaTutorial())h+='<article class="card cheio c-rosa tut"><div class="row" style="gap:14px;align-items:center"><span class="iconeapp">'+ICONE_APP+'</span><div class="stack" style="gap:4px"><div class="eyebrow">Primeiro passo</div><h2>Coloque o app na tela do seu celular</h2></div></div><p class="grande">Assim você abre com um toque, todos os dias. Leva só 1 minuto.</p><button class="btn" data-a="tutorial">Me mostre como fazer</button><button class="lnk" data-a="tutOk" style="align-self:center">Já coloquei, esconder este aviso</button></article>';
+  if(dq)h+=cardDestaque(dq);
   h+='<section class="tempo '+(TEMPO_CL[t.id]||"c-verde")+'"><div class="txt"><span class="tag">'+esc(t.nome)+"</span><p>"+linhaTempo(s,t)+"</p></div>"+(t.id==="advento"?velas(s):"")+"</section>";
   h+='<article class="escuro"><div class="eyebrow">Meu momento com Deus · 5 minutos</div><blockquote>“'+esc(m.v)+'”</blockquote><cite>'+esc(m.r)+"</cite>";
   h+=(feito?'<span class="feito">'+I("check")+"Feito hoje. Que lindo!</span>":"")+'<button class="btn" data-a="momento">'+(feito?"Rever meu momento":"Começar meu momento")+'</button><div class="sep"></div>'+semanaDots()+"</article>";
@@ -1239,7 +1295,7 @@ function vHoje(){
   h+='<a class="btn sec" href="'+LITURGIA+'" target="_blank" rel="noopener">'+I("livro")+"Ler a liturgia de hoje "+I("fora")+'</a><p class="mini" style="text-align:center">Leituras e Evangelho do dia no site da Canção Nova</p></article>';
   h+='<article class="card cheio c-amarelo"><div class="eyebrow">Para viver hoje</div><p>'+esc(c.x)+"</p></article>";
   if(at.length){h+='<section class="stack"><h3>Meus planos em andamento</h3>'+at.slice(0,2).map(cardAndamento).join("")+"</section>";}
-  else if(t.id==="advento"&&!prog("advento24")){h+='<button class="andamento c-lilas" data-a="plano" data-id="advento24"><span class="pic">'+I("vela")+'</span><span class="t"><b>Advento em família</b><small>24 dias até o Natal, com uma atividade simples por dia para fazer com os filhos</small></span>'+I("seta")+"</button>";}
+  else if(!dq&&t.id==="advento"&&!prog("advento24")){h+='<button class="andamento c-lilas" data-a="plano" data-id="advento24"><span class="pic">'+I("vela")+'</span><span class="t"><b>Advento em família</b><small>24 dias até o Natal, com uma atividade simples por dia para fazer com os filhos</small></span>'+I("seta")+"</button>";}
   else{h+='<button class="andamento c-lilas" data-a="tab" data-t="planos"><span class="pic">'+I("estrela")+'</span><span class="t"><b>Escolha um plano ou desafio</b><small>Casamento, filhos, Advento, paz no coração e muito mais</small></span>'+I("seta")+"</button>";}
   h+='<section class="atalhos">'+
     '<button class="atalho c-lilas" data-a="terco"><span>'+I("terco")+"</span>Terço</button>"+
@@ -1517,6 +1573,8 @@ var A={
   plano:function(e){go({v:"plano",id:e.dataset.id});},
   dia:function(e){go({v:"dia",id:e.dataset.id,i:+e.dataset.i});},
   trocaDia:function(e){UI.stack[UI.stack.length-1]={v:"dia",id:e.dataset.id,i:+e.dataset.i};render(true);},
+  participar:function(e){var d=null;DESTAQUES.forEach(function(x){if(x.id===e.dataset.id)d=x;});S.planos[e.dataset.id]={inicio:d?d.ini:hoje(),feitos:[],notas:{}};save();toast("Combinado! No dia, o primeiro passo aparece aqui.");render();},
+  comecarDest:function(e){var id=e.dataset.id;if(!S.planos[id])S.planos[id]={inicio:hoje(),feitos:[],notas:{}};save();go({v:"dia",id:id,i:+e.dataset.i});},
   comecarPlano:function(e){var id=e.dataset.id;S.planos[id]={inicio:hoje(),feitos:[],notas:{}};save();go({v:"dia",id:id,i:0});},
   concluirDia:function(e){var id=e.dataset.id,i=+e.dataset.i,p=plano(id);var g=S.planos[id]||(S.planos[id]={inicio:hoje(),feitos:[],notas:{}});if(g.feitos.indexOf(i)<0)g.feitos.push(i);save();
     if(g.feitos.length>=p.d.length){toast("Parabéns! Você concluiu o plano inteiro.");}else toast("Dia "+(i+1)+" concluído!");
