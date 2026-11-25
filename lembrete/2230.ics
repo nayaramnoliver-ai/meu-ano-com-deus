@@ -4,14 +4,14 @@ PRODID:-//Meu Ano com Deus 2027//PT
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
-UID:lembrete-2230@app.catolicaorante.com.br
+UID:lembrete-pt-2230@app.catolicaorante.com.br
 DTSTAMP:20261125T000000Z
 DTSTART:20261125T223000
 DURATION:PT10M
 RRULE:FREQ=DAILY
 SUMMARY:Meu momento com Deus
 DESCRIPTION:Abra o app Meu Ano com Deus e faça o desafio de hoje.
-URL:https://app.catolicaorante.com.br
+URL:https://app.catolicaorante.com.br/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Meu momento com Deus
