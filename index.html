@@ -360,6 +360,17 @@ details.item p{padding-top:8px;white-space:pre-line}
 .dest .barra{background:#fff;height:9px}
 .dest .dok{display:flex;gap:8px;align-items:flex-start;font-weight:600;color:var(--titulo);font-size:15px}
 .dest .dok svg{width:20px;height:20px;flex:none;margin-top:2px;color:var(--verde-acao)}
+
+/* dia completo dos desafios */
+.dcel{font-size:14px;font-weight:600;color:var(--mao)}
+.daviso .eyebrow{display:flex;align-items:center;gap:6px;color:var(--titulo)}
+.daviso .eyebrow svg{width:15px;height:15px}
+.daviso p{font-size:15px;color:var(--tinta)}
+.dpal .mini{color:var(--tinta)}
+.dpal .btn{align-self:flex-start}
+.dperg .grande b{font-family:var(--f-tit);font-size:19px;line-height:1.35;color:var(--titulo);font-weight:700}
+.escuro .grande{font-size:16px;line-height:1.55}
+.bloco p+p{margin-top:6px}
 </style>
 </head>
 <body>
@@ -856,6 +867,235 @@ d:[
 ]}
 );
 
+// Desafio do Advento 2026 (29/11 a 24/12): um dia completo por data, seguindo a liturgia oficial da Igreja (Ano B).
+// Campos: t título · cel celebração do dia · aviso (preceito ou destaque) · tipo/ref leitura escolhida · v frase da leitura
+// exp o que a leitura diz · med meditação (parágrafos) · perg pergunta para o coração · des desafio em família · ora oração
+(function(){
+var D=[
+{t:"Vigiar com o coração acordado",cel:"1º Domingo do Advento",vela:1,
+aviso:"Domingo é dia de preceito: participe da Santa Missa. Hoje começa um novo ano litúrgico e se acende a primeira vela da coroa.",
+tipo:"Evangelho",ref:"Mc 13,33-37",v:"Vigiai, portanto, porque não sabeis quando o dono da casa vem.",
+exp:"Jesus conta a história de um homem que viaja e deixa a casa aos cuidados dos empregados, cada um com a sua tarefa. O porteiro recebe uma ordem especial: ficar acordado. Ninguém sabe a hora da volta do dono. Na primeira leitura (Is 63–64), o povo suplica: “Ah! Se rompesses os céus e descesses!”.",
+med:["O Advento tem duas esperas. Esperamos o Natal, a memória da primeira vinda de Jesus em Belém. E esperamos a sua volta gloriosa, no fim dos tempos. Vigiar é viver as duas com o coração acordado.","Vigiar não é viver com medo. É cuidar bem da “casa” que Deus nos confiou: a família, o trabalho, a fé. O contrário de vigiar é viver no automático, correndo o dia todo sem perceber que Deus passa pela nossa vida."],
+perg:"Em que parte da minha vida eu estou “dormindo” e preciso acordar para Deus?",
+des:"Montem juntos a coroa do Advento (pode ser um prato com quatro velas e alguns raminhos) e acendam a primeira vela, a da esperança. Explique às crianças: a cada domingo acendemos uma vela a mais, até Jesus chegar.",
+ora:"Vem, Senhor Jesus! Encontra a nossa casa acordada e o nosso coração pronto para Ti. Amém."},
+
+{t:"André leva o irmão a Jesus",cel:"Santo André, apóstolo (festa)",
+tipo:"Evangelho",ref:"Mt 4,18-22",v:"Segui-me, e eu farei de vós pescadores de homens.",
+exp:"Jesus caminha à beira do mar da Galileia e vê dois irmãos, Simão (Pedro) e André, jogando as redes. Ele os chama e, na mesma hora, eles deixam as redes e o seguem. Logo depois chama também Tiago e João. O Evangelho de João conta que foi André quem levou o irmão até Jesus: “Encontramos o Messias!” (Jo 1,41).",
+med:["André não fez grandes discursos. Ele encontrou Jesus e correu para contar a quem amava. A fé se espalha assim: de pessoa para pessoa, de casa em casa.","No Advento, preparamos o caminho para Jesus chegar. Uma forma linda de fazer isso é levar alguém junto: um convite para a Missa, uma palavra de esperança, uma oração por alguém que está longe de Deus."],
+perg:"Quem eu poderia levar para mais perto de Jesus neste Natal?",
+des:"Pergunte às crianças: quem a gente pode levar para perto de Jesus neste Natal? Façam juntos um desenho ou um bilhetinho para essa pessoa e entreguem nesta semana.",
+ora:"Santo André, ensina a nossa família a levar para perto de Jesus as pessoas que amamos. Amém."},
+
+{t:"Um broto que nasce do tronco",cel:"Terça-feira da 1ª semana do Advento",
+tipo:"1ª leitura",ref:"Is 11,1-10",v:"Nascerá uma haste do tronco de Jessé, e um rebento brotará de suas raízes.",
+exp:"O profeta Isaías fala de um tronco cortado, a família do rei Davi, filho de Jessé, que parecia acabada. Dele vai nascer um broto cheio do Espírito de Deus: sabedoria, entendimento, conselho, fortaleza, ciência e temor de Deus. Com ele chega uma paz tão grande que o lobo e o cordeiro vão viver juntos.",
+med:["Esse broto é Jesus. Deus faz nascer vida justamente onde parecia não haver mais nada. É o jeito de Deus: Ele não precisa de tudo perfeito para agir.","Talvez você tenha na sua vida um “tronco cortado”: um sonho, uma relação, uma esperança que parece morta. O Advento nos convida a olhar ali com fé, porque é dali que Deus pode fazer brotar algo novo."],
+perg:"Qual “tronco cortado” da minha vida eu quero entregar a Deus para que Ele faça brotar de novo?",
+des:"Plantem juntos uma semente (feijão no algodão serve) e cuidem dela até o Natal. Cada vez que olharem, lembrem: Deus faz nascer vida nova.",
+ora:"Senhor, faz brotar vida nova onde eu já tinha perdido a esperança. Que o teu Espírito repouse sobre a nossa casa. Amém."},
+
+{t:"Deus enxugará as lágrimas",cel:"Quarta-feira da 1ª semana do Advento",
+tipo:"1ª leitura",ref:"Is 25,6-10a",v:"O Senhor Deus enxugará as lágrimas de todas as faces.",
+exp:"Isaías descreve uma grande festa no alto do monte, preparada por Deus para todos os povos, com comidas e vinhos finos. Nesse dia, Deus vai destruir a morte para sempre e enxugar as lágrimas de todos os rostos. No Evangelho do dia (Mt 15,29-37), Jesus cura muitos doentes e multiplica os pães para a multidão.",
+med:["Deus não é indiferente ao nosso cansaço nem às nossas lágrimas. Ele prepara uma mesa, cuida e alimenta. Jesus mostrou isso ao ter compaixão de uma multidão com fome.","A Missa é um pouco dessa festa já hoje: Deus nos chama à mesa e nos alimenta com o seu próprio Corpo. Toda mesa simples em família também pode ser lugar de encontro com Ele."],
+perg:"Que lágrima minha eu ainda não deixei Deus enxugar?",
+des:"Hoje, no jantar, rezem juntos antes de comer e cada pessoa conta uma coisa boa do dia. Arrumem a mesa com um capricho a mais, como quem espera uma visita especial.",
+ora:"Senhor, Tu preparas a mesa e enxugas as lágrimas. Recebe o meu cansaço e enche a nossa casa da tua paz. Amém."},
+
+{t:"A casa construída sobre a rocha",cel:"São Francisco Xavier, presbítero (memória)",
+tipo:"Evangelho",ref:"Mt 7,21.24-27",v:"Todo aquele que ouve estas minhas palavras e as põe em prática é como um homem prudente, que construiu sua casa sobre a rocha.",
+exp:"Jesus compara duas casas. As duas enfrentam chuva, enchente e ventania. Uma fica de pé porque foi construída sobre a rocha; a outra cai porque foi construída sobre a areia. A diferença não está em ouvir a Palavra, mas em colocá-la em prática.",
+med:["Todos os lares passam por tempestades: doença, dinheiro curto, brigas, cansaço. Não dá para escolher se a chuva vem. Dá para escolher onde a casa está apoiada.","São Francisco Xavier, celebrado hoje, levou o Evangelho até a Índia e o Japão. Ele não só ouviu Jesus: colocou a Palavra em prática até o fim. Construir sobre a rocha é isso: um pequeno passo concreto de cada vez."],
+perg:"Qual palavra de Deus eu já conheço, mas ainda não coloquei em prática?",
+des:"Desenhem juntos uma casinha e escrevam dentro de cada tijolo um jeito de viver a Palavra em casa: perdoar, ajudar, rezar, agradecer. Coloquem perto da coroa do Advento.",
+ora:"Jesus, sê a rocha da nossa casa. Que a tua Palavra não fique só nos ouvidos, mas chegue às nossas mãos. Amém."},
+
+{t:"Vós credes que eu posso fazer isso?",cel:"Sexta-feira da 1ª semana do Advento",
+tipo:"Evangelho",ref:"Mt 9,27-31",v:"Vós acreditais que eu posso fazer isso? Eles responderam: Sim, Senhor.",
+exp:"Dois cegos seguem Jesus gritando: “Tem piedade de nós, filho de Davi!”. Eles insistem até entrar na casa onde Jesus está. Antes de curar, Jesus pergunta se eles acreditam. Eles dizem que sim, e Jesus toca os olhos deles: “Faça-se conforme a vossa fé”. Na primeira leitura (Is 29,17-24), Isaías anuncia o dia em que “os olhos dos cegos verão”.",
+med:["Os cegos não desistiram. Seguiram Jesus pela rua e entraram atrás dele em casa. A fé verdadeira insiste, mesmo quando a resposta demora.","Jesus também nos faz a mesma pergunta hoje, diante daquilo que mais pesa no coração: “Você acredita que eu posso?”. Responder “Sim, Senhor” é o primeiro passo para enxergar com outros olhos."],
+perg:"Diante do meu maior pedido de hoje, eu consigo dizer com sinceridade: “Sim, Senhor, eu creio”?",
+des:"Brinquem de cabra-cega por alguns minutos. Depois conversem: como é não enxergar? Jesus veio trazer luz para os nossos olhos e para o nosso coração.",
+ora:"Filho de Davi, tem piedade de mim. Eu creio, Senhor, mas aumenta a minha fé. Abre os meus olhos para te ver. Amém."},
+
+{t:"Este é o caminho, andai por ele",cel:"Sábado da 1ª semana do Advento",
+tipo:"1ª leitura",ref:"Is 30,19-21.23-26",v:"Teus ouvidos ouvirão uma palavra atrás de ti: Este é o caminho, andai por ele.",
+exp:"Isaías consola um povo cansado: Deus vai ouvir o clamor e responder. Ele promete chuva para as sementes, pão farto e luz forte como a do sol. E promete guiar o povo com uma voz que diz: “Este é o caminho”. No Evangelho (Mt 9,35–10,8), Jesus vê as multidões cansadas, como ovelhas sem pastor, e envia os apóstolos.",
+med:["Quantas vezes ficamos perdidas, sem saber que decisão tomar? Deus promete não nos deixar sozinhas: Ele fala, aponta o caminho, guia passo a passo.","Para ouvir essa voz é preciso silêncio. No meio da correria de dezembro, o Advento nos pede alguns minutos por dia de silêncio com Deus, para escutar por onde Ele quer que a gente vá."],
+perg:"Que decisão eu preciso entregar a Deus, pedindo que Ele me mostre o caminho?",
+des:"Façam juntos um “caminho” no chão com fitas ou papéis, do quarto até o presépio (ou até a coroa). Cada dia, a imagem de Maria e José pode andar um pouquinho por esse caminho até o Natal.",
+ora:"Senhor, mostra-me o teu caminho e dá-me coragem de andar por ele. Fala ao meu coração, eu quero escutar. Amém."},
+
+{t:"Preparai o caminho do Senhor",cel:"2º Domingo do Advento",vela:2,
+aviso:"Domingo é dia de preceito: participe da Santa Missa. Hoje se acende a segunda vela da coroa.",
+tipo:"Evangelho",ref:"Mc 1,1-8",v:"Preparai o caminho do Senhor, endireitai suas estradas!",
+exp:"O Evangelho de Marcos começa com João Batista no deserto. Ele anuncia um batismo de conversão e muita gente vai até ele, confessando os pecados. João se veste de pelos de camelo, come gafanhotos e mel silvestre e diz: “Depois de mim vem alguém mais forte do que eu”. A primeira leitura (Is 40,1-5.9-11) começa assim: “Consolai, consolai o meu povo”.",
+med:["Preparar o caminho é tirar o que atrapalha a chegada de Jesus. Pode ser uma mágoa guardada, um vício pequeno, uma reconciliação adiada. Os “buracos” e as “montanhas” do caminho estão dentro de nós.","O Advento é um ótimo tempo para a Confissão. Ela não é um peso: é o jeito que Deus encontrou para consolar o seu povo, como diz Isaías. Procure saber os horários de Confissão na sua paróquia antes do Natal."],
+perg:"O que eu preciso tirar do caminho para Jesus chegar de verdade ao meu coração neste Natal?",
+des:"Hoje é dia de “arrumar o caminho”: cada pessoa da casa escolhe um cantinho para arrumar (o quarto, uma gaveta, os brinquedos) e separa algo em bom estado para doar.",
+ora:"Senhor, endireita os caminhos tortos do meu coração. Dá-me a graça de uma boa Confissão neste Advento. Amém."},
+
+{t:"Pelo telhado, até Jesus",cel:"Santo Ambrósio, bispo e doutor da Igreja (memória)",
+tipo:"Evangelho",ref:"Lc 5,17-26",v:"Homem, os teus pecados estão perdoados.",
+exp:"Alguns homens carregam um amigo paralisado numa maca, mas não conseguem entrar na casa por causa da multidão. Eles sobem no telhado, abrem as telhas e descem o amigo bem na frente de Jesus. Vendo a fé deles, Jesus primeiro perdoa os pecados do homem e depois o cura. Na primeira leitura (Is 35,1-10), o deserto floresce e o profeta diz: “Criai ânimo, não tenhais medo!”.",
+med:["O homem doente foi curado pela fé dos amigos. Isso é muito bonito: às vezes nós somos a pessoa na maca, e às vezes somos os amigos que carregam.","Nossa oração pode levar até Jesus quem não consegue ir sozinho: um filho afastado, um marido sem fé, uma amiga doente. Não desista de “subir no telhado” por quem você ama."],
+perg:"Quem eu estou carregando na oração? Quem eu preciso começar a levar até Jesus?",
+des:"Escrevam numa folha os nomes de pessoas que precisam de oração. Coloquem a folha perto do presépio ou da coroa e rezem por elas hoje, juntos, uma Ave-Maria.",
+ora:"Jesus, eu coloco diante de Ti as pessoas que amo e que precisam de Ti. Olha a nossa fé e toca a vida delas. Amém."},
+
+{t:"Cheia de graça desde o início",cel:"Imaculada Conceição de Nossa Senhora (solenidade)",
+aviso:"Dia de preceito no Brasil: participe da Santa Missa. Confira os horários na sua paróquia.",
+tipo:"Evangelho",ref:"Lc 1,26-38",v:"Alegra-te, cheia de graça, o Senhor está contigo!",
+exp:"Hoje a Igreja celebra que Maria foi preservada do pecado original desde o primeiro instante da sua vida, por um dom especial de Deus, preparando-a para ser a Mãe de Jesus. O Evangelho conta a visita do anjo Gabriel a Maria. A primeira leitura (Gn 3,9-15.20) lembra o pecado de Adão e Eva e a promessa de Deus: a descendência da mulher vai vencer o mal.",
+med:["O anjo não chama Maria pelo nome: chama de “cheia de graça”. É como se esse fosse o nome verdadeiro dela. Não havia espaço vazio em Maria: tudo nela era de Deus.","Nós não somos imaculadas, mas Deus também nos olha com amor e quer nos encher da sua graça. Pela Confissão e pela Eucaristia, Ele vai limpando e curando o nosso coração, para que Jesus encontre um lugar preparado."],
+perg:"Que parte do meu coração eu ainda não deixei Deus encher com a sua graça?",
+des:"Coloquem uma imagem de Nossa Senhora num lugar de destaque da casa, com uma flor ou uma vela. Rezem juntos o terço (ou um mistério) pedindo a proteção dela para a família.",
+ora:"Ó Maria concebida sem pecado, rogai por nós que recorremos a vós. Prepara o meu coração como preparaste o teu para receber Jesus. Amém."},
+
+{t:"Asas como as da águia",cel:"Quarta-feira da 2ª semana do Advento",
+tipo:"1ª leitura",ref:"Is 40,25-31",v:"Os que esperam no Senhor renovam suas forças, criam asas como as da águia.",
+exp:"Isaías pergunta ao povo, que achava que Deus tinha se esquecido dele: “Não sabes? Não ouviste?”. O Senhor é o Deus eterno, criador de tudo, que não se cansa nem se fatiga. Ele dá força ao cansado. No Evangelho do dia (Mt 11,28-30), Jesus completa: “Vinde a mim, todos vós que estais cansados”.",
+med:["Dezembro costuma ser um mês muito cansativo, cheio de compromissos, festas e contas. A Palavra de hoje não diz que o cansaço vai sumir. Diz que quem espera no Senhor renova as forças.","Esperar no Senhor é entregar a Ele o peso que não conseguimos carregar sozinhas. A águia não bate as asas o tempo todo: ela se deixa levar pelo vento. Deixe Deus ser o vento que te sustenta hoje."],
+perg:"Que cansaço eu estou carregando sozinha e preciso entregar a Deus hoje?",
+des:"Hoje, cada pessoa da casa escolhe uma tarefa para aliviar o cansaço de outra (lavar a louça, arrumar a mesa, fazer um carinho). Ninguém conta para quem fez: é um presente escondido.",
+ora:"Senhor, Tu não te cansas. Recebe o meu cansaço e renova as minhas forças. Que eu descanse em Ti. Amém."},
+
+{t:"Não tenhas medo, eu te ajudo",cel:"Quinta-feira da 2ª semana do Advento",
+tipo:"1ª leitura",ref:"Is 41,13-20",v:"Eu sou o Senhor, teu Deus, que te seguro pela mão direita e te digo: Não temas, eu te ajudo.",
+exp:"Deus fala com ternura ao seu povo, que se sentia pequeno e fraco como um “vermezinho”. Ele promete segurar a sua mão, abrir rios nos montes e fazer brotar árvores no deserto. No Evangelho (Mt 11,11-15), Jesus diz que entre os nascidos de mulher não surgiu ninguém maior que João Batista.",
+med:["Deus não fala de longe: Ele segura a nossa mão, como uma mãe segura a mão de um filho na rua movimentada. Essa é a imagem do Advento: um Deus que se aproxima.","Quando o medo aparecer hoje, lembre dessa frase. Repita no coração: “Não temas, eu te ajudo”. Ela é para você."],
+perg:"Qual é o medo que mais tem tirado a minha paz? Eu consigo entregar essa mão a Deus?",
+des:"Na hora de dormir, segure a mão de cada filho e diga: “Deus segura a sua mão e diz: não tenha medo, eu te ajudo”. Rezem juntos o Anjo da Guarda.",
+ora:"Senhor, segura a minha mão. Quando eu tiver medo, lembra-me de que Tu estás comigo e me ajudas. Amém."},
+
+{t:"Deus ensina o que é bom",cel:"Sexta-feira da 2ª semana do Advento",
+tipo:"1ª leitura",ref:"Is 48,17-19",v:"Eu sou o Senhor teu Deus, que te ensino o que é para o teu bem, que te guio pelo caminho que deves seguir.",
+exp:"Deus se apresenta como um mestre e um guia. Ele lamenta: “Se tivesses ouvido os meus mandamentos, a tua paz seria como um rio”. No Evangelho (Mt 11,16-19), Jesus compara a sua geração a crianças que não aceitam nenhuma brincadeira: não ouviram João, que jejuava, nem Jesus, que comia com os pecadores.",
+med:["A paz como um rio: que imagem bonita! Ela não vem de tudo dar certo, mas de viver no caminho que Deus ensina. Os mandamentos não são um peso: são o mapa do caminho da paz.","Às vezes reclamamos de tudo, como as crianças do Evangelho. O Advento nos convida a parar de reclamar e a escutar: o que Deus está tentando me ensinar através desta situação?"],
+perg:"O que Deus está tentando me ensinar com aquilo que hoje me incomoda?",
+des:"Façam o “dia sem reclamar”: quem reclamar, troca a reclamação por um agradecimento. No fim do dia, contem quantos agradecimentos apareceram.",
+ora:"Senhor, ensina-me o que é bom e guia-me pelo teu caminho. Que a tua paz corra na nossa casa como um rio. Amém."},
+
+{t:"A Mãe que vem ao nosso encontro",cel:"Nossa Senhora de Guadalupe, padroeira da América Latina (festa)",
+tipo:"1ª leitura",ref:"Zc 2,14-17",v:"Rejubila e alegra-te, filha de Sião, pois eis que venho para habitar no meio de ti.",
+exp:"O profeta Zacarias anuncia: Deus vem morar no meio do seu povo, e muitas nações se unirão a Ele. Em 1531, no México, Nossa Senhora apareceu a São Juan Diego, um indígena simples, e deixou a sua imagem estampada no manto dele. No Evangelho (Lc 1,39-47), Maria vai às pressas visitar Isabel, levando Jesus no ventre.",
+med:["Em Guadalupe, Maria aparece grávida, com uma faixa na cintura. Ela vem trazendo Jesus. É sempre assim: Maria nunca chama a atenção para si; ela leva a Jesus.","Juan Diego se achava pequeno e sem importância. Nossa Senhora disse a ele: “Não estou eu aqui, que sou tua mãe?”. Essa frase vale para você hoje, em qualquer preocupação."],
+perg:"Que preocupação eu quero colocar hoje no colo de Nossa Senhora?",
+des:"Contem às crianças a história de Juan Diego e das rosas que apareceram no inverno. Desenhem juntos um manto com rosas e escrevam: “Não estou eu aqui, que sou tua mãe?”.",
+ora:"Nossa Senhora de Guadalupe, Mãe da América, cobre a nossa família com o teu manto e leva-nos a Jesus. Amém."},
+
+{t:"Alegrai-vos: o Senhor está perto",cel:"3º Domingo do Advento, Domingo da Alegria (Gaudete)",vela:3,
+aviso:"Domingo é dia de preceito: participe da Santa Missa. Hoje se acende a terceira vela, a cor-de-rosa, sinal de alegria porque o Natal está perto.",
+tipo:"Evangelho",ref:"Jo 1,6-8.19-28",v:"Eu sou a voz que grita no deserto: Aplainai o caminho do Senhor.",
+exp:"Os sacerdotes perguntam a João Batista quem ele é. Ele responde com humildade: não é o Messias, nem Elias, nem o profeta. É apenas “a voz” que anuncia alguém que já está no meio deles. Na segunda leitura (1Ts 5,16-24), São Paulo pede: “Estai sempre alegres, rezai sem cessar, dai graças em todas as circunstâncias”.",
+med:["A alegria cristã não depende de tudo estar bem. Ela nasce da certeza de que o Senhor está perto. Por isso, no meio do Advento, a Igreja muda a cor para o rosa e nos chama a alegrar-nos.","João Batista era alegre por apontar Jesus e não a si mesmo. Que a nossa vida também seja uma “voz” que aponta para Jesus, com mais gentileza, mais paciência, mais sorrisos dentro de casa."],
+perg:"O que tem roubado a minha alegria? Que motivo eu tenho hoje para agradecer a Deus?",
+des:"Acendam a vela rosa e façam uma “roda de alegria”: cada pessoa diz três motivos para agradecer a Deus nesta semana. Se puderem, cantem juntos uma música de Natal.",
+ora:"Senhor, que eu esteja sempre alegre, reze sem cessar e dê graças em tudo. Tu estás perto. Amém."},
+
+{t:"Uma estrela vai surgir",cel:"São João da Cruz, presbítero e doutor da Igreja (memória)",
+tipo:"1ª leitura",ref:"Nm 24,2-7.15-17a",v:"Uma estrela sai de Jacó, um cetro se levanta de Israel.",
+exp:"Balaão, um profeta estrangeiro, foi chamado para amaldiçoar Israel, mas o Espírito de Deus o fez abençoar. Ele vê de longe uma estrela que vai surgir de Jacó. A Igreja enxerga nessa estrela o Messias, Jesus. No Evangelho (Mt 21,23-27), os chefes questionam a autoridade de Jesus.",
+med:["Deus usa até quem não esperamos para anunciar Jesus. E a estrela de Balaão lembra a estrela que guiou os Magos até Belém.","São João da Cruz, celebrado hoje, passou por grandes noites escuras na alma e mesmo assim encontrou Deus. Ele escreveu: “No entardecer da vida, seremos julgados pelo amor”. Quando a sua noite estiver escura, procure a estrela: Jesus está lá."],
+perg:"Que “noite escura” eu estou vivendo? Onde eu posso procurar a estrela de Deus nela?",
+des:"Recortem juntos uma estrela de papel amarelo e escrevam nela o nome de Jesus. Pendurem no alto do presépio ou da árvore.",
+ora:"Jesus, estrela que brilha na noite, ilumina os meus caminhos escuros e guia a nossa família até Ti. Amém."},
+
+{t:"Um povo humilde e confiante",cel:"Terça-feira da 3ª semana do Advento",
+tipo:"1ª leitura",ref:"Sf 3,1-2.9-13",v:"Deixarei no meio de ti um povo humilde e pobre, que buscará refúgio no nome do Senhor.",
+exp:"O profeta Sofonias denuncia uma cidade rebelde, que não ouve nem confia em Deus. Mas anuncia que Deus vai purificar o coração do povo e deixar um “resto” humilde, que confia nele. No Evangelho (Mt 21,28-32), Jesus conta a história de dois filhos: um diz “não” ao pai, mas depois se arrepende e vai trabalhar; o outro diz “sim”, mas não vai.",
+med:["Deus não procura gente perfeita, procura gente humilde. O primeiro filho errou, mas voltou atrás. A humildade de reconhecer o erro abre a porta para Deus.","No Natal, Deus mesmo se fez pequeno e pobre, nascendo numa manjedoura. Quem é humilde entende o Natal melhor do que ninguém."],
+perg:"Para qual “não” que eu disse a Deus ainda dá tempo de voltar atrás?",
+des:"Hoje é dia de pedir perdão. Se alguém da casa magoou outra pessoa nesta semana, que peça perdão com um abraço. Os pais podem dar o exemplo primeiro.",
+ora:"Senhor, dá-me um coração humilde, que reconhece os erros e volta para Ti. Quero ser do teu povo pequeno e confiante. Amém."},
+
+{t:"Céus, deixai cair o orvalho",cel:"Quarta-feira da 3ª semana do Advento",
+aviso:"Muitas famílias começam hoje a Novena de Natal, de 16 a 24 de dezembro. Você encontra a novena aqui no app, em Orar > Novenas.",
+tipo:"1ª leitura",ref:"Is 45,6b-8.18.21b-25",v:"Céus, deixai cair o orvalho, e que as nuvens façam chover o justo; abra-se a terra e germine o Salvador.",
+exp:"Deus fala com força: “Eu sou o Senhor, e não há outro”. E então vem um pedido lindíssimo, que a Igreja canta no Advento há séculos (em latim, “Rorate caeli”): que o céu derrame o Salvador como orvalho e a terra o faça germinar. No Evangelho (Lc 7,19-23), João Batista manda perguntar a Jesus: “És tu aquele que há de vir?”.",
+med:["O orvalho cai devagar, em silêncio, durante a noite, e de manhã tudo está molhado. Jesus veio assim: sem barulho, numa noite em Belém.","João Batista, na prisão, teve uma dúvida. E Jesus não o repreendeu: mostrou os sinais. Também podemos levar as nossas dúvidas a Jesus. Ele responde mostrando o que faz na nossa vida."],
+perg:"Que dúvida eu carrego no coração e quero levar com sinceridade a Jesus?",
+des:"Comecem hoje a Novena de Natal em família, rezando juntos um pouquinho a cada noite até o dia 24.",
+ora:"Céus, deixai cair o orvalho! Vem, Senhor Jesus, e faz germinar a salvação na nossa casa. Amém."},
+
+{t:"Jesus tem uma família",cel:"17 de dezembro: começam as Antífonas do Ó",
+aviso:"De hoje até o dia 23, a Igreja reza as “Antífonas do Ó”, sete chamados a Jesus com os seus nomes bíblicos. Hoje: “Ó Sabedoria, vinde ensinar-nos o caminho da prudência!”.",
+tipo:"Evangelho",ref:"Mt 1,1-17",v:"Livro da origem de Jesus Cristo, filho de Davi, filho de Abraão.",
+exp:"São Mateus apresenta a árvore genealógica de Jesus: de Abraão a Davi, de Davi ao exílio na Babilônia, do exílio até José, esposo de Maria. Na lista aparecem reis e gente simples, santos e pecadores, e também mulheres estrangeiras como Rute e Raab. Na primeira leitura (Gn 49), Jacó abençoa Judá, de quem viria o rei.",
+med:["Jesus quis ter uma família de verdade, com uma história cheia de altos e baixos. Deus não tem vergonha da história humana: Ele entra nela e a salva por dentro.","A nossa família também tem feridas, erros e histórias difíceis. Jesus não espera que ela fique perfeita para entrar. Ele quer nascer justamente ali."],
+perg:"Que parte da história da minha família eu preciso entregar a Deus para ser curada?",
+des:"Mostrem às crianças fotos dos avós e bisavós e contem uma história bonita de fé da família. Rezem juntos pelos antepassados, vivos e falecidos.",
+ora:"Ó Sabedoria, que saístes da boca do Altíssimo, vinde ensinar-nos o caminho da prudência. Abençoa a nossa família e toda a nossa história. Amém."},
+
+{t:"José, o homem justo",cel:"18 de dezembro · Antífona do Ó: Ó Adonai",
+aviso:"Antífona de hoje: “Ó Adonai, guia da casa de Israel, vinde resgatar-nos com o vosso braço poderoso!”.",
+tipo:"Evangelho",ref:"Mt 1,18-24",v:"José, filho de Davi, não tenhas medo de receber Maria como tua esposa.",
+exp:"José descobre que Maria está grávida e, sendo justo, decide deixá-la em segredo, sem expô-la. Em sonho, um anjo explica que o filho vem do Espírito Santo e que se chamará Jesus, “porque ele vai salvar o seu povo dos seus pecados”. Ele será o Emanuel, Deus conosco. José acorda e faz tudo como o anjo mandou.",
+med:["José não fala nenhuma palavra no Evangelho. Ele escuta e obedece. Não entendia tudo, mas confiou e assumiu Maria e Jesus com todo o amor.","Na vida em família, muitas vezes não entendemos o que Deus está fazendo. José ensina a dar o próximo passo com confiança, mesmo sem ter todas as respostas."],
+perg:"Em qual situação Deus está me pedindo para confiar, mesmo sem entender tudo?",
+des:"Hoje é o dia do pai (ou de quem cuida da família): façam um cartão para agradecer por ele, como José cuidou de Jesus. Rezem juntos pedindo a proteção de São José para a casa.",
+ora:"São José, homem justo e silencioso, ensina-me a escutar Deus e a confiar. Protege a nossa família como protegeste Maria e Jesus. Amém."},
+
+{t:"Para Deus nada é impossível",cel:"19 de dezembro · Antífona do Ó: Ó Raiz de Jessé",
+aviso:"Antífona de hoje: “Ó Raiz de Jessé, sinal para os povos, vinde libertar-nos, não tardeis!”.",
+tipo:"Evangelho",ref:"Lc 1,5-25",v:"Não tenhas medo, Zacarias, porque a tua súplica foi ouvida.",
+exp:"Zacarias e Isabel eram justos, mas não tinham filhos e já eram idosos. Enquanto Zacarias oferece o incenso no Templo, o anjo Gabriel anuncia que Isabel terá um filho, João, que vai preparar o caminho do Senhor. Zacarias duvida e fica mudo até o nascimento do menino. Na primeira leitura (Jz 13), outro anúncio parecido: o nascimento de Sansão.",
+med:["Isabel esperou a vida inteira. Quando parecia tarde demais, Deus respondeu. O tempo de Deus não é o nosso, mas Ele não esquece nenhuma oração.","Zacarias ficou em silêncio porque duvidou. Às vezes Deus também nos pede um tempo de silêncio para amadurecer a fé. O silêncio não é castigo: é preparação."],
+perg:"Que oração antiga eu já quase desisti de fazer? Posso entregá-la de novo a Deus hoje?",
+des:"Façam um “minuto de silêncio” em família antes de dormir, todos de olhos fechados, ouvindo o coração. Depois, cada um diz baixinho um pedido a Deus.",
+ora:"Senhor, para Ti nada é impossível. Eu entrego de novo em tuas mãos o pedido que carrego há tanto tempo. Faça-se a tua vontade. Amém."},
+
+{t:"O sim de Maria",cel:"4º Domingo do Advento · Antífona do Ó: Ó Chave de Davi",vela:4,
+aviso:"Domingo é dia de preceito: participe da Santa Missa. Hoje se acende a quarta vela da coroa. Antífona: “Ó Chave de Davi, vinde e libertai os que estão nas trevas!”.",
+tipo:"Evangelho",ref:"Lc 1,26-38",v:"Eis aqui a serva do Senhor; faça-se em mim segundo a tua palavra!",
+exp:"O anjo Gabriel anuncia a Maria que ela será a mãe do Filho de Deus. Maria pergunta como isso vai acontecer, e o anjo responde que o Espírito Santo virá sobre ela. Então Maria diz o seu “sim”. Na primeira leitura (2Sm 7), Deus promete a Davi que o seu reino durará para sempre: essa promessa se cumpre em Jesus.",
+med:["Tudo no Natal começa com um “sim”. Maria não sabia tudo o que ia acontecer, mas disse sim a Deus por inteiro. E por esse sim Deus entrou no mundo.","Deus também pede o nosso “sim” todos os dias: na paciência com os filhos, no cuidado com o lar, no perdão difícil. Cada pequeno sim abre espaço para Jesus nascer na nossa casa."],
+perg:"Para o que Deus está me pedindo um “sim” neste momento da minha vida?",
+des:"Acendam as quatro velas e leiam juntos o Evangelho de hoje (Lc 1,26-38). Cada pessoa completa a frase: “Neste Natal, eu digo sim a Deus para...”.",
+ora:"Maria, ensina-me a dizer sim a Deus como tu disseste. Faça-se em mim segundo a tua palavra. Amém."},
+
+{t:"A visita que enche de alegria",cel:"21 de dezembro · Antífona do Ó: Ó Sol nascente",
+aviso:"Antífona de hoje: “Ó Sol nascente, esplendor da luz eterna, vinde iluminar os que estão nas trevas!”.",
+tipo:"Evangelho",ref:"Lc 1,39-45",v:"Bem-aventurada aquela que acreditou.",
+exp:"Maria vai às pressas até a casa de Isabel, nas montanhas. Quando Isabel ouve a saudação de Maria, o bebê João pula de alegria no seu ventre e Isabel, cheia do Espírito Santo, exclama: “Bendita és tu entre as mulheres e bendito é o fruto do teu ventre!”. Na primeira leitura (Ct 2,8-14), o amado chega “saltando sobre os montes”.",
+med:["Maria acabou de receber a notícia mais importante da história e, em vez de pensar em si, vai ajudar a prima idosa. Quem carrega Jesus vai ao encontro dos outros.","As visitas de dezembro podem ser cansativas, mas também podem ser como a de Maria: levar Jesus para dentro da casa dos outros, com alegria e serviço."],
+perg:"Quem está precisando de uma visita, de uma ligação ou de uma ajuda minha nestes dias?",
+des:"Façam juntos uma visita ou uma ligação de vídeo para alguém mais velho ou sozinho da família. Levem um bilhetinho ou um docinho.",
+ora:"Maria, que foste às pressas servir Isabel, ensina-me a levar Jesus aos outros com alegria. Amém."},
+
+{t:"A minha alma engrandece o Senhor",cel:"22 de dezembro · Antífona do Ó: Ó Rei das nações",
+aviso:"Antífona de hoje: “Ó Rei das nações e pedra angular da Igreja, vinde salvar o homem que formastes do pó!”.",
+tipo:"Evangelho",ref:"Lc 1,46-56",v:"A minha alma engrandece o Senhor, e o meu espírito se alegra em Deus, meu Salvador.",
+exp:"Na casa de Isabel, Maria canta o Magnificat. Ela louva a Deus porque olhou para a sua pequenez, derrubou os poderosos e elevou os humildes, encheu de bens os famintos e cumpriu a promessa feita a Abraão. Na primeira leitura (1Sm 1,24-28), Ana entrega o pequeno Samuel ao Senhor e agradece pelo filho tão esperado.",
+med:["Maria não pede nada no Magnificat: ela agradece. A gratidão é a oração de quem reconhece que tudo é presente de Deus.","Antes da correria final do Natal, pare um pouco e olhe para trás: quantas coisas Deus fez por você neste ano? Faça do seu coração um Magnificat."],
+perg:"Quais foram as três maiores graças que Deus me deu neste ano?",
+des:"Escrevam juntos a “lista de gratidão do ano”: cada pessoa da casa diz coisas boas que Deus fez. Guardem a lista para ler no Natal.",
+ora:"A minha alma engrandece o Senhor, porque Ele olhou para a minha pequenez. Obrigada, meu Deus, por tudo o que fizeste por nós neste ano. Amém."},
+
+{t:"O nome dele é João",cel:"23 de dezembro · Antífona do Ó: Ó Emanuel",
+aviso:"Antífona de hoje: “Ó Emanuel, Deus conosco, esperança das nações, vinde salvar-nos, Senhor nosso Deus!”.",
+tipo:"Evangelho",ref:"Lc 1,57-66",v:"O seu nome é João.",
+exp:"Isabel dá à luz um menino e todos se alegram. Na hora de dar o nome, os parentes querem chamá-lo Zacarias, como o pai. Isabel diz que será João. Zacarias, ainda mudo, escreve numa tabuinha: “O seu nome é João”. Na mesma hora a sua boca se abre e ele louva a Deus. Na primeira leitura (Ml 3), Deus promete enviar o seu mensageiro para preparar o caminho.",
+med:["“João” quer dizer “Deus é misericordioso”. Zacarias voltou a falar quando obedeceu a Deus em vez de seguir o costume. A obediência abriu a sua boca para o louvor.","Amanhã é véspera de Natal. Faltando tão pouco, o Senhor pergunta se ainda há algo que precisamos acertar: uma ligação, um perdão, uma promessa."],
+perg:"O que ainda falta acertar no meu coração antes de Jesus chegar?",
+des:"Contem às crianças o significado do nome de cada um da família e agradeçam a Deus pelo nome e pela vida de cada pessoa da casa.",
+ora:"Ó Emanuel, Deus conosco, vem! A nossa casa está quase pronta para Te receber. Abre a minha boca para o louvor. Amém."},
+
+{t:"O sol que nasce do alto",cel:"Véspera de Natal",vela:4,
+aviso:"Hoje à noite a Igreja celebra a Missa da Noite de Natal. O Natal do Senhor (25/12) é dia de preceito: participe da Santa Missa.",
+tipo:"Evangelho",ref:"Lc 1,67-79",v:"Graças ao coração misericordioso do nosso Deus, o sol que nasce do alto nos visitará.",
+exp:"Cheio do Espírito Santo, Zacarias canta o Benedictus. Ele bendiz a Deus que visitou o seu povo e cumpriu a promessa feita a Abraão. Depois olha para o pequeno João e diz: “Tu serás chamado profeta do Altíssimo”. E termina anunciando Jesus como o sol que vem iluminar os que estão nas trevas e guiar os nossos passos no caminho da paz.",
+med:["A espera terminou. Durante todo o Advento você vigiou, preparou o caminho, alegrou-se e disse sim. Agora é só acolher: o sol nasce do alto e vem visitar a sua casa.","Na correria das últimas horas, guarde um momento de silêncio. O mais importante do Natal não está na mesa nem nos presentes: é Jesus, que quer nascer no seu coração."],
+perg:"Como eu quero receber Jesus nesta noite de Natal?",
+des:"Antes da ceia, reúnam a família em volta do presépio, coloquem o Menino Jesus na manjedoura e rezem juntos. Cada pessoa diz um presente que quer dar a Jesus neste ano.",
+ora:"Bendito seja o Senhor, Deus de Israel, que visitou o seu povo! Vem, Menino Jesus, nasce na nossa casa e no nosso coração. Amém."}
+];
+for(var i=0;i<PLANOS.length;i++){if(PLANOS[i].id==="advento24"){PLANOS[i].d=D;PLANOS[i].ini="2026-11-29";PLANOS[i].resumo="Um dia para cada dia do Advento, de 29 de novembro até a véspera do Natal, seguindo as leituras da Igreja: a leitura do dia explicada, uma meditação, uma pergunta para o coração, um desafio em família e uma oração.";}}
+})();
+
 // Orações do lar, terço e novenas
 window.ORACOES = [
 // ——— Orações de sempre
@@ -1230,7 +1470,7 @@ function cardDestaque(d){
   }
   var k=Math.min(diff(d.ini,s),p.d.length-1),tot=p.d.length,n=g?g.feitos.length:0;
   h+='<div class="dtopo"><div class="stack" style="gap:6px;min-width:0"><span class="tag">'+esc(d.nome)+'</span><h2>Hoje é o dia '+(k+1)+'</h2></div><span class="cont"><small>dia</small><b>'+(k+1)+'</b><small>de '+tot+"</small></span></div>";
-  h+='<p class="grande">Passo de hoje: <b>'+esc(p.d[k][0])+"</b></p>";
+  h+='<p class="grande">Passo de hoje: <b>'+esc(tituloDia(p.d[k]))+"</b></p>";
   if(!g){
     h+='<p>'+(k===0?"O desafio começa hoje! Leva só alguns minutinhos.":"Ainda dá tempo de participar! Comece pelo passo de hoje e faça os anteriores com calma, se quiser.")+"</p>";
     h+='<button class="btn" data-a="comecarDest" data-id="'+d.id+'" data-i="'+k+'">'+(k===0?"Começar o desafio agora":"Começar pelo dia de hoje")+"</button>";
@@ -1240,7 +1480,7 @@ function cardDestaque(d){
   }else{
     var feitoHj=g.feitos.indexOf(k)>=0,atras=proximoDia(p);
     h+=barra(n/tot)+'<p class="mini" style="margin-top:-4px">'+n+" de "+tot+" passos feitos</p>";
-    if(feitoHj){h+='<p class="dok">'+I("check")+"Passo de hoje feito. Que lindo!</p>"+(k+1<tot?"<p>Amanhã: <b>"+esc(p.d[k+1][0])+"</b></p>":"");h+='<button class="btn sec" data-a="dia" data-id="'+d.id+'" data-i="'+k+'">Rever o passo de hoje</button>';}
+    if(feitoHj){h+='<p class="dok">'+I("check")+"Passo de hoje feito. Que lindo!</p>"+(k+1<tot?"<p>Amanhã: <b>"+esc(tituloDia(p.d[k+1]))+"</b></p>":"");h+='<button class="btn sec" data-a="dia" data-id="'+d.id+'" data-i="'+k+'">Rever o passo de hoje</button>';}
     else h+='<button class="btn" data-a="dia" data-id="'+d.id+'" data-i="'+k+'">Fazer o passo de hoje</button>';
     if(atras<k)h+='<button class="lnk" data-a="dia" data-id="'+d.id+'" data-i="'+atras+'" style="align-self:center">Ficou algum dia para trás? Ver o dia '+(atras+1)+"</button>";
   }
@@ -1345,13 +1585,29 @@ function vPlano(id){
   else if(n<p.d.length)h+='<div class="card c-'+p.cor+'"><div class="row" style="justify-content:space-between"><b>'+n+" de "+p.d.length+' dias</b><span class="mini">começou em '+dataCurta(g.inicio)+"</span></div>"+barra(n/p.d.length)+'<button class="btn" data-a="dia" data-id="'+id+'" data-i="'+k+'">Continuar no dia '+(k+1)+"</button></div>";
   else h+='<div class="card cheio c-'+p.cor+'" style="text-align:center;align-items:center"><span class="mao">Plano concluído!</span><p>Você caminhou todos os '+p.d.length+" dias. Que Deus faça frutificar tudo o que foi semeado.</p></div>";
   h+='<section class="card c-'+p.cor+'" style="padding-block:6px"><div class="dias">';
-  p.d.forEach(function(d,i){var ok=g&&g.feitos.indexOf(i)>=0;h+='<button class="dia-row" data-a="dia" data-id="'+id+'" data-i="'+i+'"><span class="chk'+(ok?" ok":"")+'">'+(ok?I("check"):"")+'</span><span class="t"><small>Dia '+(i+1)+"</small><b>"+esc(d[0])+'</b></span><span class="seta">'+I("seta")+"</span></button>";});
+  p.d.forEach(function(d,i){var ok=g&&g.feitos.indexOf(i)>=0;h+='<button class="dia-row" data-a="dia" data-id="'+id+'" data-i="'+i+'"><span class="chk'+(ok?" ok":"")+'">'+(ok?I("check"):"")+'</span><span class="t"><small>Dia '+(i+1)+(p.ini?" · "+dataCurta(addD(p.ini,i)):"")+"</small><b>"+esc(tituloDia(d))+'</b></span><span class="seta">'+I("seta")+"</span></button>";});
   h+="</div></section>";
   if(g){h+=UI.confirma==="rec"?confirma("rec","Recomeçar do dia 1? As marcações deste plano serão apagadas (suas anotações ficam guardadas).","recomecar",'data-id="'+id+'"'):'<button class="lnk" style="align-self:center" data-a="pedeConfirma" data-c="rec">Recomeçar este plano</button>';}
   return h;
 }
+function tituloDia(d){return Array.isArray(d)?d[0]:d.t;}
+function vDiaCompleto(id,i,p,d,g){
+  var nota=g&&g.notas&&g.notas[i]||"",diario=g&&g.diario&&g.diario[i]||"",data=p.ini?addD(p.ini,i):null;
+  var h=sub(p.titulo);
+  h+='<section class="stack"><div class="row" style="flex-wrap:wrap;gap:8px"><span class="tag" style="--tg:var(--'+({rosa:"car",azul:"az",verde:"ceu",amarelo:"am",lilas:"lil"}[p.cor])+')">Dia '+(i+1)+" de "+p.d.length+"</span>"+(data?'<span class="tag" style="--tg:#fff;border:1.4px dashed var(--pk2)">'+cap(dataLonga(data))+"</span>":"")+"</div><h1>"+esc(d.t)+"</h1>"+(d.cel?'<p class="dcel">'+esc(d.cel)+"</p>":"")+"</section>";
+  if(d.aviso)h+='<article class="card cheio c-amarelo daviso"><div class="eyebrow">'+I("estrela")+"Importante hoje</div><p>"+esc(d.aviso)+"</p></article>";
+  h+='<article class="card c-'+p.cor+' dpal"><div class="eyebrow">'+esc(d.tipo||"Leitura")+" de hoje</div><blockquote>“"+esc(d.v)+'”</blockquote><cite>'+esc(d.ref)+'</cite><p class="mini">Se puder, leia o texto completo na sua Bíblia: <b>'+esc(d.ref)+"</b>.</p>"+(data&&data===hoje()?'<a class="btn sec peq" href="'+LITURGIA+'" target="_blank" rel="noopener">'+I("livro")+"Ler a liturgia completa de hoje "+I("fora")+"</a>":"")+"</article>";
+  h+='<section class="bloco"><h3>Entenda a leitura</h3><p>'+esc(d.exp)+"</p></section>";
+  h+='<section class="bloco"><h3>Para meditar</h3>'+(d.med||[]).map(function(x){return "<p>"+esc(x)+"</p>";}).join("")+"</section>";
+  h+='<article class="card dperg"><div class="eyebrow">Pergunta para o coração</div><p class="grande"><b>'+esc(d.perg)+'</b></p><label class="lb" for="notaPlano">O que Deus falou comigo · meu pedido</label><textarea id="notaPlano" rows="5" data-in="planoNota" data-id="'+id+'" data-i="'+i+'" placeholder="Escreva aqui o que você entendeu da leitura, o que sentiu ou o seu pedido a Deus...">'+esc(nota)+"</textarea></article>";
+  h+='<article class="escuro"><div class="eyebrow">Desafio de hoje</div><p class="grande">'+esc(d.des)+"</p></article>";
+  h+='<section class="bloco"><label class="lb" for="diarioPlano">Como foi o meu desafio</label><textarea id="diarioPlano" rows="4" data-in="planoDiario" data-id="'+id+'" data-i="'+i+'" placeholder="Conte como foi: o que você fez, como a pessoa reagiu, o que mudou em você...">'+esc(diario)+"</textarea></section>";
+  h+='<section class="bloco"><h3>Oração</h3><p class="oracao-curta">'+esc(d.ora)+"</p></section>";
+  return h;
+}
 function vDia(id,i){
   i=+i;var p=plano(id),d=p.d[i],g=prog(id),ok=g&&g.feitos.indexOf(i)>=0,nota=g&&g.notas&&g.notas[i]||"";
+  if(!Array.isArray(d))return vDiaCompleto(id,i,p,d,g)+fimDia(id,i,p,ok);
   var h=sub(p.titulo);
   h+='<section class="stack"><span class="tag" style="--tg:var(--'+({rosa:"car",azul:"az",verde:"ceu",amarelo:"am",lilas:"lil"}[p.cor])+')">Dia '+(i+1)+" de "+p.d.length+"</span><h1>"+esc(d[0])+"</h1></section>";
   h+='<article class="card c-'+p.cor+'"><blockquote>“'+esc(d[1])+'”</blockquote><cite>'+esc(d[2])+"</cite></article>";
@@ -1359,7 +1615,10 @@ function vDia(id,i){
   h+='<article class="escuro"><div class="eyebrow">Desafio de hoje</div><p>'+esc(d[4])+"</p></article>";
   h+='<section class="bloco"><h3>Oração</h3><p class="oracao-curta">'+esc(d[5])+"</p></section>";
   h+='<section class="bloco"><label class="lb" for="notaPlano">Minhas anotações</label><textarea id="notaPlano" rows="4" data-in="planoNota" data-id="'+id+'" data-i="'+i+'" placeholder="O que Deus falou com você hoje?">'+esc(nota)+"</textarea></section>";
-  h+=ok?'<div class="row" style="justify-content:space-between"><span class="feito">'+I("check")+'Dia concluído</span><button class="lnk" data-a="desmarcarDia" data-id="'+id+'" data-i="'+i+'">desmarcar</button></div>':'<button class="btn" data-a="concluirDia" data-id="'+id+'" data-i="'+i+'">Concluir o dia '+(i+1)+"</button>";
+  return h+fimDia(id,i,p,ok);
+}
+function fimDia(id,i,p,ok){
+  var h=ok?'<div class="row" style="justify-content:space-between"><span class="feito">'+I("check")+'Dia concluído</span><button class="lnk" data-a="desmarcarDia" data-id="'+id+'" data-i="'+i+'">desmarcar</button></div>':'<button class="btn" data-a="concluirDia" data-id="'+id+'" data-i="'+i+'">Concluir o dia '+(i+1)+"</button>";
   h+='<div class="navdias">'+(i>0?'<button class="btn sec peq" data-a="trocaDia" data-id="'+id+'" data-i="'+(i-1)+'">'+I("voltar")+"Dia "+i+"</button>":"<span></span>")+(i<p.d.length-1?'<button class="btn sec peq" data-a="trocaDia" data-id="'+id+'" data-i="'+(i+1)+'">Dia '+(i+2)+I("seta")+"</button>":"")+"</div>";
   return h;
 }
@@ -1621,6 +1880,7 @@ var tmr={};
 function onInput(e){var el=e.target,k=el.dataset.in;if(!k)return;
   if((k==="dataTeste"||k==="restArq")&&e.type!=="change")return;
   if(k==="momento"){var s=hoje();var r=S.momento[s]||(S.momento[s]={});r.nota=el.value;}
+  else if(k==="planoDiario"){var g2=S.planos[el.dataset.id]||(S.planos[el.dataset.id]={inicio:hoje(),feitos:[],notas:{}});g2.diario=g2.diario||{};g2.diario[el.dataset.i]=el.value;}
   else if(k==="planoNota"){var g=S.planos[el.dataset.id]||(S.planos[el.dataset.id]={inicio:hoje(),feitos:[],notas:{}});g.notas=g.notas||{};g.notas[el.dataset.i]=el.value;}
   else if(k==="novInt"){var n=S.novenas.filter(function(x){return x.uid===el.dataset.uid;})[0];if(n)n.intencao=el.value;}
   else if(k==="nome"){S.nome=el.value.trim();}
