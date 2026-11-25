@@ -314,6 +314,25 @@ details.item p{padding-top:8px;white-space:pre-line}
 .escuro .semana i.hj{border-style:solid;border-color:#fff}
 .escuro .sep{border-color:rgba(255,255,255,.22)}
 .escuro .lnk{color:#E9C99E}
+
+/* Tutorial: colocar na tela do celular (letras maiores, para todas as idades) */
+.tut .grande,.tut p.grande{font-size:17px;line-height:1.6}
+.iconeapp{width:64px;height:64px;flex:none;border-radius:16px;overflow:hidden;box-shadow:0 4px 12px rgba(47,76,124,.18)}
+.iconeapp svg{width:100%;height:100%;display:block}
+.tcel{gap:10px}
+.tbt{border:2px solid var(--az2);border-radius:18px;padding:16px 12px;font-family:var(--f-tit);font-weight:700;font-size:20px;color:var(--titulo);text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px;background:#fff}
+.tbt small{font-family:var(--f-txt);font-weight:500;font-size:11.5px;color:var(--suave);line-height:1.3}
+.tbt.on{background:var(--titulo);border-color:var(--titulo);color:#fff}
+.tbt.on small{color:#C9D9EF}
+.tpassos{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.tpasso{display:grid;grid-template-columns:40px 1fr;gap:12px;border:1.6px dashed var(--pk2);border-radius:20px;padding:16px 14px}
+.tnum{width:40px;height:40px;border-radius:50%;background:var(--titulo);color:#fff;font-family:var(--f-tit);font-weight:700;font-size:20px;display:grid;place-items:center}
+.tc{display:flex;flex-direction:column;gap:10px;min-width:0}
+.tc h3{font-size:20px;padding-top:6px}
+.tc p{font-size:17px;line-height:1.6}
+.tc .dica{font-size:15px;background:var(--am);border-radius:14px;padding:10px 12px}
+.ilu{width:76px;height:76px;border-radius:20px;background:var(--az);display:grid;place-items:center;color:var(--titulo);border:2.5px solid var(--mao)}
+.ilu svg{width:44px;height:44px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 </style>
 </head>
 <body>
@@ -1091,7 +1110,7 @@ function render(top){
     case "hoje":h=vHoje();break;case "planos":h=vPlanos();break;case "orar":h=vOrar();break;case "filhos":h=vFilhos();break;case "cal":h=vCal();break;
     case "momento":h=vMomento();break;case "plano":h=vPlano(c.id);break;case "dia":h=vDia(c.id,c.i);break;
     case "terco":h=vTerco();break;case "novenas":h=vNovenas();break;case "novenaNova":h=vNovenaNova(c.id);break;case "novena":h=vNovena(c.uid);break;
-    case "pedidos":h=vPedidos();break;case "oracao":h=vOracao(c.id);break;case "historia":h=vHistoria(c.id);break;case "config":h=vConfig();break;
+    case "pedidos":h=vPedidos();break;case "oracao":h=vOracao(c.id);break;case "historia":h=vHistoria(c.id);break;case "config":h=vConfig();break;case "tutorial":h=vTutorial();break;
   }
   app.innerHTML=h;
   nav.innerHTML=vNav();
@@ -1108,6 +1127,55 @@ function confirma(id,txt,act,data){
   return '<div class="confirma"><span>'+txt+'</span><div class="row"><button class="btn rosa peq" data-a="'+act+'" '+data+'>Sim</button><button class="btn sec peq" data-a="naoConfirma">Não</button></div></div>';
 }
 function saudacao(){var h=new Date().getHours();return h<12?"Bom dia":h<18?"Boa tarde":"Boa noite";}
+
+
+/* ---------- colocar na tela do celular (tutorial) ---------- */
+var ICONE_APP='<svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#E3EEF9"/><circle cx="256" cy="262" r="150" fill="#fff"/><g fill="none" stroke="#2F4C7C" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"><path d="M168 250 256 182l88 68"/><path d="M188 236v100h136V236"/></g><path d="M256 318s-40-24-40-54a22 22 0 0 1 40-13 22 22 0 0 1 40 13c0 30-40 54-40 54z" fill="#C89462"/></svg>';
+var instalaEvt=null;
+function instalado(){try{return (window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;}catch(e){return false;}}
+function qualCel(){var u=navigator.userAgent||"";if(/iPhone|iPad|iPod/i.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1))return "ios";if(/Android/i.test(u))return "android";return "";}
+function navInterno(){var u=navigator.userAgent||"";return /Instagram|FBAN|FBAV|FB_IAB|Line\/|GSA\/|WhatsApp/i.test(u);}
+function precisaTutorial(){return !PREVIA?(!instalado()&&!S.tutOk):!S.tutOk;}
+function ilu(tipo){
+  var t={
+    share:'<svg viewBox="0 0 24 24"><path d="M12 3.5v11M8 7.5l4-4 4 4"/><path d="M8.5 10.5H7A1.5 1.5 0 0 0 5.5 12v7A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 17 10.5h-1.5"/></svg>',
+    mais:'<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8.5v7M8.5 12h7"/></svg>',
+    pontos:'<svg viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="18.5" r="1.6" fill="currentColor"/></svg>',
+    pontosh:'<svg viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="18.5" cy="12" r="1.6" fill="currentColor"/></svg>',
+    safari:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>',
+    chrome:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.2"/><path d="M12 8.8h8M9.2 13.6 5.2 6.7M14.8 13.6l-4 6.9"/></svg>',
+    celular:'<svg viewBox="0 0 24 24"><path d="M8.5 13.5V8.6M15.5 13.5V8.6"/><rect x="6.5" y="3" width="11" height="18" rx="2.5"/><path d="M10.5 18h3"/></svg>',
+    ok:'<svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-8.5"/></svg>'
+  }[tipo];
+  return '<span class="ilu" aria-hidden="true">'+t+"</span>";
+}
+function passo(n,tit,txt,ilustra,extra){
+  return '<li class="tpasso"><div class="tnum">'+n+'</div><div class="tc"><h3>'+tit+"</h3>"+(ilustra||"")+"<p>"+txt+"</p>"+(extra||"")+"</div></li>";
+}
+function vTutorial(){
+  var c=UI.tutCel||qualCel()||"ios";
+  var h=sub("Colocar na tela do celular")+'<section class="stack tut"><p class="mao">É rapidinho, leva 1 minuto</p><h1>Vamos colocar o app na tela do seu celular</h1><p class="grande">Assim ele fica com um ícone, igual a qualquer aplicativo. É só tocar e começar a rezar.</p></section>';
+  h+='<section class="bloco"><span class="lb">Qual é o seu celular?</span><div class="duo tcel"><button class="tbt'+(c==="ios"?" on":"")+'" data-a="tutCel" data-c="ios">iPhone<small>Apple</small></button><button class="tbt'+(c==="android"?" on":"")+'" data-a="tutCel" data-c="android">Android<small>Samsung, Motorola, Xiaomi...</small></button></div></section>';
+  if(instalaEvt&&c==="android")h+='<article class="escuro"><h2>Jeito mais fácil</h2><p>Toque no botão abaixo e depois em <b>Instalar</b>.</p><button class="btn" data-a="instalarJa">Colocar na tela agora</button><p class="mini">Se não funcionar, siga o passo a passo abaixo.</p></article>';
+  if(navInterno())h+='<article class="card cheio c-amarelo tut"><div class="eyebrow">Atenção</div><p class="grande">Você abriu o app por dentro de outro aplicativo (Instagram, e-mail ou WhatsApp). Antes de tudo, faça o <b>passo 1</b> abaixo.</p></article>';
+  h+='<ol class="tpassos">';
+  if(c==="ios"){
+    h+=passo(1,"Abra no Safari","O Safari é a bússola azul do iPhone. Se você abriu este link pelo e-mail, Instagram ou WhatsApp, toque nos <b>três pontinhos</b> ou no ícone da <b>bússola</b> e escolha <b>“Abrir no Safari”</b>.",ilu("safari"));
+    h+=passo(2,"Toque no botão de compartilhar","Ele fica na barra de baixo da tela: é um <b>quadradinho com uma setinha para cima</b>.",ilu("share"),'<p class="dica">Não achou? Toque nos <b>três pontinhos (•••)</b> no canto de baixo e depois em <b>Compartilhar</b>.</p>');
+    h+=passo(3,"Toque em “Adicionar à Tela de Início”","Vai abrir uma lista. Arraste a lista para cima com o dedo até achar <b>“Adicionar à Tela de Início”</b>, que tem um quadradinho com um sinal de +.",ilu("mais"),'<p class="dica">Se não aparecer, toque em <b>“Ver mais”</b> ou <b>“Editar ações”</b> no fim da lista.</p>');
+    h+=passo(4,"Toque em “Adicionar”","Fica no canto de cima, à direita. Pronto, o app foi para a tela do seu iPhone!",ilu("ok"));
+  }else{
+    h+=passo(1,"Abra no Chrome","O Chrome é a bolinha colorida (vermelha, amarela e verde). Se você abriu este link pelo e-mail, Instagram ou WhatsApp, toque nos <b>três pontinhos</b> e escolha <b>“Abrir no Chrome”</b>.",ilu("chrome"));
+    h+=passo(2,"Toque nos três pontinhos","Eles ficam no <b>canto de cima, à direita</b> da tela, em pé, um embaixo do outro.",ilu("pontos"));
+    h+=passo(3,"Toque em “Adicionar à tela inicial”","Em alguns celulares o nome é <b>“Instalar app”</b>. Os dois fazem a mesma coisa.",ilu("celular"),'<p class="dica">No navegador da Samsung, toque nas <b>três listrinhas</b> embaixo e depois em <b>“Adicionar página a”</b> e <b>“Tela inicial”</b>.</p>');
+    h+=passo(4,"Toque em “Instalar” ou “Adicionar”","Confirme na janelinha que aparecer. Pronto, o app foi para a tela do seu celular!",ilu("ok"));
+  }
+  h+="</ol>";
+  h+='<article class="card cheio c-azul tut"><div class="row" style="gap:14px"><span class="iconeapp">'+ICONE_APP+'</span><div class="stack" style="gap:4px"><h3>Procure este ícone</h3><p>Ele aparece na tela do celular com o nome <b>“Ano com Deus”</b>.</p></div></div></article>';
+  h+='<article class="card tut"><div class="eyebrow">Importante</div><p class="grande">Depois de colocar na tela, <b>abra sempre pelo ícone</b>. É nele que ficam guardados os seus planos, pedidos e anotações.</p></article>';
+  h+='<button class="btn" data-a="tutOk">Pronto, já coloquei na tela</button>';
+  return h;
+}
 
 /* ---------- HOJE ---------- */
 function linhaTempo(s,t){
@@ -1146,6 +1214,7 @@ function vHoje(){
   var at=planosAtivos();
   var h=topo();
   h+='<section class="ola"><p class="mao">'+saudacao()+(S.nome?", "+esc(S.nome):"")+'</p><h1>'+cap(dataLonga(s))+"</h1></section>";
+  if(precisaTutorial())h+='<article class="card cheio c-rosa tut"><div class="row" style="gap:14px;align-items:center"><span class="iconeapp">'+ICONE_APP+'</span><div class="stack" style="gap:4px"><div class="eyebrow">Primeiro passo</div><h2>Coloque o app na tela do seu celular</h2></div></div><p class="grande">Assim você abre com um toque, todos os dias. Leva só 1 minuto.</p><button class="btn" data-a="tutorial">Me mostre como fazer</button><button class="lnk" data-a="tutOk" style="align-self:center">Já coloquei, esconder este aviso</button></article>';
   h+='<section class="tempo '+(TEMPO_CL[t.id]||"c-verde")+'"><div class="txt"><span class="tag">'+esc(t.nome)+"</span><p>"+linhaTempo(s,t)+"</p></div>"+(t.id==="advento"?velas(s):"")+"</section>";
   h+='<article class="escuro"><div class="eyebrow">Meu momento com Deus · 5 minutos</div><blockquote>“'+esc(m.v)+'”</blockquote><cite>'+esc(m.r)+"</cite>";
   h+=(feito?'<span class="feito">'+I("check")+"Feito hoje. Que lindo!</span>":"")+'<button class="btn" data-a="momento">'+(feito?"Rever meu momento":"Começar meu momento")+'</button><div class="sep"></div>'+semanaDots()+"</article>";
@@ -1405,7 +1474,7 @@ function vConfig(){
   h+='<section class="bloco"><span class="lb">Idioma</span><div class="chips"><button class="chip on">Português</button><button class="chip" disabled>English · em breve</button><button class="chip" disabled>Español · em breve</button></div></section>';
   h+='<article class="card c-verde"><div class="eyebrow">Cópia de segurança</div><p>Seus pedidos, anotações e progresso ficam guardados só neste celular. De vez em quando, salve uma cópia para não perder nada se trocar de aparelho.</p>'+(PREVIA?'':'<button class="btn" data-a="baixarCopia">Salvar cópia no celular</button>')+'<button class="btn sec" data-a="copiarCopia">Copiar cópia (para colar no WhatsApp ou e-mail)</button>';
   h+='<label class="lb" for="restTxt" style="padding-top:6px">Restaurar uma cópia</label><input type="file" id="restArq" accept=".json,.txt,application/json,text/plain" data-in="restArq"><textarea id="restTxt" rows="3" placeholder="...ou cole aqui o texto da cópia"></textarea><button class="btn sec" data-a="restaurar">Restaurar</button></article>';
-  h+='<article class="card c-rosa"><div class="eyebrow">Colocar na tela do celular</div><p><b>iPhone (Safari):</b> toque no botão de compartilhar (o quadradinho com a seta para cima) e depois em “Adicionar à Tela de Início”.</p><p><b>Android (Chrome):</b> toque nos três pontinhos no canto de cima e depois em “Instalar app” ou “Adicionar à tela inicial”.</p></article>';
+  h+='<article class="card c-rosa"><div class="eyebrow">Colocar na tela do celular</div><p>Passo a passo bem explicado para iPhone e Android.</p><button class="btn" data-a="tutorial">Ver o passo a passo</button></article>';
   if(PREVIA)h+='<article class="card cheio c-lilas"><div class="eyebrow">Só na prévia: ver outro dia</div><p class="mini" style="color:var(--tinta)">Para conferir o conteúdo de dezembro e janeiro antes da hora.</p><input type="date" id="dataTeste" min="2026-11-22" max="2027-02-28" value="'+esc(S.dataTeste||"")+'" data-in="dataTeste"><div class="row" style="flex-wrap:wrap"><button class="btn sec peq" data-a="pulaData" data-k="2026-12-08">8/12</button><button class="btn sec peq" data-a="pulaData" data-k="2026-12-13">13/12</button><button class="btn sec peq" data-a="pulaData" data-k="2026-12-25">Natal</button><button class="btn sec peq" data-a="pulaData" data-k="2027-01-03">Epifania</button><button class="btn sec peq" data-a="pulaData" data-k="">Hoje de verdade</button></div></article>';
   h+='<p class="mini rodape">Meu Ano com Deus 2027 · conteúdo até janeiro de 2027<br>Os próximos meses chegam com as atualizações, no mesmo endereço.</p>';
   return h;
@@ -1423,6 +1492,10 @@ var A={
   back:back,
   tab:function(e){setTab(e.dataset.t);},
   config:function(){go({v:"config"});},
+  tutorial:function(){UI.tutCel=null;go({v:"tutorial"});},
+  tutCel:function(e){UI.tutCel=e.dataset.c;render();},
+  tutOk:function(){S.tutOk=true;save();toast("Que bom! Agora é só abrir pelo ícone.");if(cur().v==="tutorial")back();else render();},
+  instalarJa:function(){if(!instalaEvt){toast("Siga o passo a passo abaixo.");return;}instalaEvt.prompt();instalaEvt.userChoice.then(function(r){if(r&&r.outcome==="accepted"){S.tutOk=true;save();toast("Pronto! O app está na tela do seu celular.");}instalaEvt=null;render();});},
   momento:function(){go({v:"momento"});},
   concluirMomento:function(){var s=hoje();var r=S.momento[s]||{};r.feito=true;var ta=document.getElementById("momentoNota");if(ta)r.nota=ta.value;S.momento[s]=r;save();toast("Momento de hoje guardado. Deus te abençoe!");back();},
   filtro:function(e){UI.filtro=e.dataset.f;render();},
@@ -1485,6 +1558,8 @@ function init(){
   app=document.getElementById("app");nav=document.getElementById("nav");toastEl=document.getElementById("toast");
   document.addEventListener("click",function(e){var el=e.target.closest("[data-a]");if(!el||el.disabled)return;var f=A[el.dataset.a];if(f){e.preventDefault();f(el);}});
   document.addEventListener("input",onInput);document.addEventListener("change",function(e){if(e.target.dataset.in==="restArq"||e.target.dataset.in==="dataTeste")onInput(e);});
+  window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();instalaEvt=e;if(cur().v==="tutorial")render();});
+  window.addEventListener("appinstalled",function(){S.tutOk=true;save();});
   render(true);
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
