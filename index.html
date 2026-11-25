@@ -635,10 +635,12 @@ d:[
 // Planos e desafios — parte 2
 window.PLANOS = window.PLANOS || [];
 window.PLANOS.push(
-{id:"advento24",titulo:"Advento em família: 24 dias até o Natal",cat:"Advento e Natal",cor:"lilas",ic:"vela",destaque:true,
-resumo:"Um passo por dia de 1º a 24 de dezembro: uma história da Bíblia, uma conversa e uma atividade simples para viver o Advento com os filhos.",
+{id:"advento24",titulo:"Advento em família: do primeiro domingo até o Natal",cat:"Advento e Natal",cor:"lilas",ic:"vela",destaque:true,
+resumo:"Um passo por dia durante todo o Advento, até a véspera do Natal: uma história da Bíblia, uma conversa e uma atividade simples para viver o Advento com os filhos.",
 d:[
-["O povo que esperava","O povo que andava nas trevas viu uma grande luz.","Is 9,1","O Advento começa no escuro, esperando a luz. Cada vela acesa na coroa mostra que Jesus está chegando.","Acendam a vela da coroa (ou uma vela comum) e expliquem às crianças: “cada semana a luz aumenta, porque Jesus está mais perto”.","Vem, Senhor Jesus, ilumina a nossa casa!"],
+["Vigiar com o coração acordado","Vigiai, portanto, porque não sabeis quando o dono da casa vem.","Mc 13,35","Hoje começa o Advento, o tempo de preparar a casa e o coração para o Natal. Vigiar é viver atenta, com o coração acordado para Jesus.","Montem juntos a coroa do Advento (pode ser um prato com quatro velas e alguns raminhos) e acendam a primeira vela. Contem às crianças: a cada domingo acendemos uma vela a mais, até Jesus chegar.","Vem, Senhor Jesus! Encontra a nossa casa acordada e o nosso coração pronto para Ti."],
+["André leva o irmão a Jesus","Encontramos o Messias.","Jo 1,41","Hoje a Igreja celebra Santo André. Quando ele conheceu Jesus, a primeira coisa que fez foi correr para contar ao irmão, Pedro. Quem encontra Jesus quer levar os outros até Ele.","Pergunte às crianças: quem a gente pode levar para perto de Jesus neste Natal? Façam juntos um desenho ou um bilhetinho para essa pessoa.","Santo André, ensina a nossa família a levar para perto de Jesus as pessoas que amamos. Amém."],
+["O povo que esperava","O povo que andava nas trevas viu uma grande luz.","Is 9,1","No Advento, esperamos a luz que vem. Cada vela acesa na coroa mostra que Jesus está chegando.","Acendam a vela da coroa (ou uma vela comum) e expliquem às crianças: “cada semana a luz aumenta, porque Jesus está mais perto”.","Vem, Senhor Jesus, ilumina a nossa casa!"],
 ["Uma promessa de Deus","A virgem conceberá e dará à luz um filho, e o chamará Emanuel.","Is 7,14","Deus prometeu um Salvador muitos anos antes do Natal. Deus sempre cumpre o que promete.","Pergunte às crianças: “qual foi a última promessa que você cumpriu?”. Conte que Deus cumpre todas.","Obrigada, Deus, porque Tu sempre cumpres as tuas promessas."],
 ["Noé e o arco-íris","Ponho o meu arco nas nuvens como sinal da aliança.","Gn 9,13","O arco-íris é sinal de que Deus nunca abandona o seu povo. Ele cuida da nossa família também.","Desenhem juntos um arco-íris e escrevam: “Deus cuida de nós”.","Senhor, obrigada pelo teu cuidado com a nossa família."],
 ["Abraão e as estrelas","Olha para o céu e conta as estrelas, se puderes.","Gn 15,5","Deus prometeu a Abraão uma família enorme. Nós fazemos parte dessa família de fé!","À noite, olhem as estrelas (da janela ou do quintal) e agradeçam pela família.","Deus de Abraão, obrigada por nos fazer parte da tua grande família."],
@@ -1210,9 +1212,9 @@ function vTutorial(){
 
 /* ---------- DESAFIOS ESPECIAIS (destaque na tela de início) ---------- */
 var DESTAQUES=[
-{id:"advento24",nome:"Desafio do Advento",ini:"2026-12-01",fim:"2026-12-24",aviso:"2026-11-22",quando:"1º de dezembro",cor:"roxo",ic:"vela"},
-{id:"anonovo7",nome:"Desafio do Ano Novo",ini:"2027-01-01",fim:"2027-01-07",aviso:"2026-12-25",quando:"1º de janeiro",cor:"ouro",ic:"sol"},
-{id:"quaresma40",nome:"Desafio da Quaresma",ini:"2027-02-10",fim:"2027-03-27",aviso:"2027-01-27",quando:"10 de fevereiro, Quarta-feira de Cinzas",cor:"roxo",ic:"vela"}
+{id:"advento24",nome:"Desafio do Advento",ini:"2026-11-29",fim:"2026-12-24",aviso:"2026-11-20",quando:"no domingo, 29 de novembro, o primeiro dia do Advento",cor:"roxo",ic:"vela"},
+{id:"anonovo7",nome:"Desafio do Ano Novo",ini:"2027-01-01",fim:"2027-01-07",aviso:"2026-12-25",quando:"em 1º de janeiro",cor:"ouro",ic:"sol"},
+{id:"quaresma40",nome:"Desafio da Quaresma",ini:"2027-02-10",fim:"2027-03-27",aviso:"2027-01-27",quando:"na Quarta-feira de Cinzas, 10 de fevereiro",cor:"roxo",ic:"vela"}
 ];
 function destaqueAtual(){var s=hoje();for(var i=0;i<DESTAQUES.length;i++){var d=DESTAQUES[i];if(s>=d.aviso&&s<=d.fim){var p=plano(d.id);if(s>=d.ini&&!p)continue;return d;}}return null;}
 function cardDestaque(d){
@@ -1220,7 +1222,7 @@ function cardDestaque(d){
   if(s<d.ini){
     var f=diff(s,d.ini);
     h+='<div class="dtopo"><div class="stack" style="gap:6px;min-width:0"><span class="tag">Desafio especial</span><h2>'+esc(d.nome)+'</h2></div><span class="cont"><small>'+(f===1?"começa":"faltam")+'</small>'+(f===1?'<b style="font-size:17px">amanhã</b>':'<b>'+f+'</b>')+(f===1?"":"<small>dias</small>")+"</span></div>";
-    h+='<p class="grande">Começa em <b>'+esc(d.quando)+"</b>."+(p?" "+esc(p.resumo):"")+"</p>";
+    h+='<p class="grande">Começa <b>'+esc(d.quando)+"</b>."+(p?" "+esc(p.resumo):"")+"</p>";
     if(!p)h+='<p class="dok">'+I("check")+"Ele chega aqui no app antes de começar. Fique de olho!</p>";
     else if(g)h+='<p class="dok">'+I("check")+"Você já confirmou que vai participar. No dia, o primeiro passo aparece aqui.</p>"+'<button class="lnk" data-a="plano" data-id="'+d.id+'" style="align-self:center">Ver como é o desafio</button>';
     else h+='<button class="btn" data-a="participar" data-id="'+d.id+'">Sim, quero participar</button><button class="lnk" data-a="plano" data-id="'+d.id+'" style="align-self:center">Ver como é o desafio</button>';
@@ -1295,7 +1297,7 @@ function vHoje(){
   h+='<a class="btn sec" href="'+LITURGIA+'" target="_blank" rel="noopener">'+I("livro")+"Ler a liturgia de hoje "+I("fora")+'</a><p class="mini" style="text-align:center">Leituras e Evangelho do dia no site da Canção Nova</p></article>';
   h+='<article class="card cheio c-amarelo"><div class="eyebrow">Para viver hoje</div><p>'+esc(c.x)+"</p></article>";
   if(at.length){h+='<section class="stack"><h3>Meus planos em andamento</h3>'+at.slice(0,2).map(cardAndamento).join("")+"</section>";}
-  else if(!dq&&t.id==="advento"&&!prog("advento24")){h+='<button class="andamento c-lilas" data-a="plano" data-id="advento24"><span class="pic">'+I("vela")+'</span><span class="t"><b>Advento em família</b><small>24 dias até o Natal, com uma atividade simples por dia para fazer com os filhos</small></span>'+I("seta")+"</button>";}
+  else if(!dq&&t.id==="advento"&&!prog("advento24")){h+='<button class="andamento c-lilas" data-a="plano" data-id="advento24"><span class="pic">'+I("vela")+'</span><span class="t"><b>Advento em família</b><small>Todo o Advento até o Natal, com uma atividade simples por dia para fazer com os filhos</small></span>'+I("seta")+"</button>";}
   else{h+='<button class="andamento c-lilas" data-a="tab" data-t="planos"><span class="pic">'+I("estrela")+'</span><span class="t"><b>Escolha um plano ou desafio</b><small>Casamento, filhos, Advento, paz no coração e muito mais</small></span>'+I("seta")+"</button>";}
   h+='<section class="atalhos">'+
     '<button class="atalho c-lilas" data-a="terco"><span>'+I("terco")+"</span>Terço</button>"+
