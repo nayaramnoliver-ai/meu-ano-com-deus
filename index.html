@@ -371,6 +371,11 @@ details.item p{padding-top:8px;white-space:pre-line}
 .dperg .grande b{font-family:var(--f-tit);font-size:19px;line-height:1.35;color:var(--titulo);font-weight:700}
 .escuro .grande{font-size:16px;line-height:1.55}
 .bloco p+p{margin-top:6px}
+/* lembrete diário */
+select{width:100%;font:inherit;font-size:17px;font-weight:600;color:var(--titulo);background:#fff;border:1.6px dashed var(--pk2);border-radius:16px;padding:12px 14px;-webkit-appearance:none;appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--titulo) 50%),linear-gradient(135deg,var(--titulo) 50%,transparent 50%);background-position:calc(100% - 22px) 50%,calc(100% - 16px) 50%;background-size:6px 6px;background-repeat:no-repeat}
+.lembc .pic{width:44px;height:44px;border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--titulo);flex:none}
+.lembc .pic svg{width:24px;height:24px}
+#lembrete{scroll-margin-top:72px}
 </style>
 </head>
 <body>
@@ -2838,6 +2843,7 @@ presente:'<rect x="4" y="9" width="16" height="11" rx="2"/><path d="M3.5 9h17M12
 agua:'<path d="M12 3.5s6 6.8 6 10.8a6 6 0 0 1-12 0c0-4 6-10.8 6-10.8z"/><path d="M9.5 15a2.6 2.6 0 0 0 2.5 2.3"/>',
 escudo:'<path d="M12 3.5 19 6v5.3c0 4.6-3 7.8-7 9.2-4-1.4-7-4.6-7-9.2V6z"/><path d="M12 9.5v5M9.5 12h5" stroke-opacity="0"/>',
 prato:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/>',
+sino:'<path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/>',
 ajustes:'<path d="M4 7.5h9M17 7.5h3M4 16.5h3M11 16.5h9"/><circle cx="15" cy="7.5" r="2"/><circle cx="9" cy="16.5" r="2"/>',
 voltar:'<path d="m14.5 5.5-6.5 6.5 6.5 6.5"/>',
 seta:'<path d="m9.5 5.5 6.5 6.5-6.5 6.5"/>',
@@ -3036,6 +3042,7 @@ function vHoje(){
   h+='<section class="ola"><p class="mao">'+saudacao()+(S.nome?", "+esc(S.nome):"")+'</p><h1>'+cap(dataLonga(s))+"</h1></section>";
   if(precisaTutorial())h+='<article class="card cheio c-rosa tut"><div class="row" style="gap:14px;align-items:center"><span class="iconeapp">'+ICONE_APP+'</span><div class="stack" style="gap:4px"><div class="eyebrow">Primeiro passo</div><h2>Coloque o app na tela do seu celular</h2></div></div><p class="grande">Assim você abre com um toque, todos os dias. Leva só 1 minuto.</p><button class="btn" data-a="tutorial">Me mostre como fazer</button><button class="lnk" data-a="tutOk" style="align-self:center">Já coloquei, esconder este aviso</button></article>';
   if(dq)h+=cardDestaque(dq);
+  if(!precisaTutorial()&&!S.lembOk)h+='<article class="card cheio c-azul lembc"><div class="row" style="gap:14px;align-items:center"><span class="pic">'+I("sino")+'</span><div class="stack" style="gap:4px"><div class="eyebrow">Para não esquecer</div><h2>Quer um lembrete todo dia?</h2></div></div><p>Um aviso no seu celular, no horário que você escolher, para o seu momento com Deus e o desafio do dia.</p><button class="btn" data-a="lembConfig">Criar meu lembrete</button><button class="lnk" data-a="lembNao" style="align-self:center">Agora não</button></article>';
   h+='<section class="tempo '+(TEMPO_CL[t.id]||"c-verde")+'"><div class="txt"><span class="tag">'+esc(t.nome)+"</span><p>"+linhaTempo(s,t)+"</p></div>"+(t.id==="advento"?velas(s):"")+"</section>";
   h+='<article class="escuro"><div class="eyebrow">Meu momento com Deus · 5 minutos</div><blockquote>“'+esc(m.v)+'”</blockquote><cite>'+esc(m.r)+"</cite>";
   h+=(feito?'<span class="feito">'+I("check")+"Feito hoje. Que lindo!</span>":"")+'<button class="btn" data-a="momento">'+(feito?"Rever meu momento":"Começar meu momento")+'</button><div class="sep"></div>'+semanaDots()+"</article>";
@@ -3307,10 +3314,24 @@ function vCal(){
   return h;
 }
 
+/* ---------- LEMBRETE DIÁRIO ---------- */
+function ehIphone(){var u=navigator.userAgent||"";return /iPhone|iPad|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1);}
+function horasLembrete(){var r=[];for(var h=5;h<=22;h++){r.push((h<10?"0":"")+h+":00");r.push((h<10?"0":"")+h+":30");}return r;}
+function cardLembrete(){
+  var hr=S.lembHora||"07:00",ios=ehIphone();
+  var h='<article class="card c-azul" id="lembrete"><div class="eyebrow">Lembrete diário</div><h2>Um aviso todo dia para o seu momento com Deus</h2><p>Escolha o horário. O lembrete fica no calendário do seu celular e toca todos os dias, mesmo com o app fechado.</p>';
+  h+='<label class="lb" for="lembHora">Horário do lembrete</label><select id="lembHora" data-in="lembHora">'+horasLembrete().map(function(x){return '<option'+(x===hr?' selected':'')+'>'+x+'</option>';}).join("")+'</select>';
+  h+=ios?'<button class="btn" data-a="lembIos">Criar lembrete no iPhone</button><button class="lnk" data-a="lembAndroid" style="align-self:center">Tenho Android</button>'
+        :'<button class="btn" data-a="lembAndroid">Criar lembrete no celular</button><button class="lnk" data-a="lembIos" style="align-self:center">Tenho iPhone</button>';
+  h+='<p class="mini">'+(ios?'No iPhone, toque em <b>Adicionar ao Calendário</b> (ou “Adicionar tudo”) na tela que abrir.':'Vai abrir a Agenda do Google: confira o horário e toque em <b>Salvar</b>.')+' Para mudar o horário depois, apague o lembrete antigo no calendário e crie outro aqui.</p></article>';
+  return h;
+}
+
 /* ---------- AJUSTES ---------- */
 function vConfig(){
   var h=sub("Ajustes")+'<section class="stack"><h1>Meu app</h1></section>';
   h+='<section class="bloco"><label class="lb" for="cfgNome">Como posso te chamar?</label><input type="text" id="cfgNome" data-in="nome" value="'+esc(S.nome)+'" placeholder="Seu nome"></section>';
+  h+=cardLembrete();
   h+='<section class="bloco"><span class="lb">Idioma</span><div class="chips"><button class="chip on">Português</button><button class="chip" disabled>English · em breve</button><button class="chip" disabled>Español · em breve</button></div></section>';
   h+='<article class="card c-verde"><div class="eyebrow">Cópia de segurança</div><p>Seus pedidos, anotações e progresso ficam guardados só neste celular. De vez em quando, salve uma cópia para não perder nada se trocar de aparelho.</p>'+(PREVIA?'':'<button class="btn" data-a="baixarCopia">Salvar cópia no celular</button>')+'<button class="btn sec" data-a="copiarCopia">Copiar cópia (para colar no WhatsApp ou e-mail)</button>';
   h+='<label class="lb" for="restTxt" style="padding-top:6px">Restaurar uma cópia</label><input type="file" id="restArq" accept=".json,.txt,application/json,text/plain" data-in="restArq"><textarea id="restTxt" rows="3" placeholder="...ou cole aqui o texto da cópia"></textarea><button class="btn sec" data-a="restaurar">Restaurar</button></article>';
@@ -3332,6 +3353,15 @@ var A={
   back:back,
   tab:function(e){setTab(e.dataset.t);},
   config:function(){go({v:"config"});},
+  lembConfig:function(){go({v:"config"});setTimeout(function(){var c=document.getElementById("lembrete");if(c)c.scrollIntoView({behavior:"smooth",block:"start"});},250);},
+  lembNao:function(){S.lembOk=true;save();toast("Tudo bem! Você encontra o lembrete em Ajustes.");render();},
+  lembIos:function(){var hr=S.lembHora||"07:00";if(PREVIA){toast("No app instalado, isso abre o calendário do iPhone.");return;}
+    S.lembOk=true;save();window.location.href="lembrete/"+hr.replace(":","")+".ics";},
+  lembAndroid:function(){var hr=(S.lembHora||"07:00").replace(":","");var d=hoje().replace(/-/g,"");var fim=hr.slice(0,2)+(hr.slice(2)==="00"?"10":"40");
+    var tz="America/Sao_Paulo";try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||tz;}catch(err){}
+    var u="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Meu momento com Deus")+"&details="+encodeURIComponent("Hora do seu momento com Deus e do desafio de hoje. Abra o app Meu Ano com Deus: https://app.catolicaorante.com.br")+"&dates="+d+"T"+hr+"00/"+d+"T"+fim+"00&ctz="+encodeURIComponent(tz)+"&recur="+encodeURIComponent("RRULE:FREQ=DAILY");
+    if(PREVIA){toast("No app instalado, isso abre a Agenda do Google.");return;}
+    S.lembOk=true;save();window.open(u,"_blank","noopener");},
   tutorial:function(){UI.tutCel=null;go({v:"tutorial"});},
   tutCel:function(e){UI.tutCel=e.dataset.c;render();},
   tutOk:function(){S.tutOk=true;save();toast("Que bom! Agora é só abrir pelo ícone.");if(cur().v==="tutorial")back();else render();},
@@ -3392,6 +3422,7 @@ function onInput(e){var el=e.target,k=el.dataset.in;if(!k)return;
   else if(k==="planoNota"){var g=S.planos[el.dataset.id]||(S.planos[el.dataset.id]={inicio:hoje(),feitos:[],notas:{}});g.notas=g.notas||{};g.notas[el.dataset.i]=el.value;}
   else if(k==="novInt"){var n=S.novenas.filter(function(x){return x.uid===el.dataset.uid;})[0];if(n)n.intencao=el.value;}
   else if(k==="nome"){S.nome=el.value.trim();}
+  else if(k==="lembHora"){S.lembHora=el.value;}
   else if(k==="dataTeste"){if(el.value){S.dataTeste=el.value;save();UI.calMes=null;UI.calSel=null;toast("Vendo o app em "+dataCurta(el.value));}return;}
   else if(k==="restArq"){var f=el.files&&el.files[0];if(f){var rd=new FileReader();rd.onload=function(){restaurar(String(rd.result));};rd.readAsText(f);}return;}
   clearTimeout(tmr.s);tmr.s=setTimeout(save,300);
