@@ -7,7 +7,7 @@ self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.
 self.addEventListener('fetch',e=>{
   const r=e.request; if(r.method!=='GET')return;
   const u=new URL(r.url);
-  if(u.origin===location.origin&&(['/en/','/es/','/it/'].some(p=>u.pathname.startsWith(p))))return; // pasta de outro idioma: não mexe
+  if(u.origin===location.origin&&(['/en/','/es/','/it/','/regali/','/regalos/'].some(p=>u.pathname.startsWith(p))))return; // pasta de outro idioma: não mexe
   if(r.mode==='navigate'||u.pathname.endsWith('index.html')){
     // sempre tenta a versão nova (atualizações do mês); sem internet, usa a guardada
     e.respondWith(fetch(r).then(res=>{const c=res.clone();caches.open(CACHE).then(x=>x.put('index.html',c));return res;}).catch(()=>caches.match('index.html')));
